@@ -11,7 +11,7 @@ Ben -
 Luke -  Spearhead documentation (flowchart and user manual)  
 Parakh -  
 Chris - Draw pokemon and backgrounds figure out how to set up SDL  
-Josh -  
+Josh -  Moral Manager/Encouragement coordinator.
 
 ## Things that need to be done
 1)  START  

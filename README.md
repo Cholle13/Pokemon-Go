@@ -29,5 +29,10 @@ Josh -
 2) Hit the preview tab before you commit changes  
 3) Commenting your commits are helpful for other to understand what you just did  
 4) COMMENT YOUR CODE PLEASE WE ALL CODE DIFFERENTLY AND IT MAKES OUR LIFE EASIER  
+5) [Here is a Cheatsheat on using markup](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)  
+
+
+## Setting up SDL  
+[For Windows users using codeblocks follow steps here](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/codeblocks/index.php)  
 
 

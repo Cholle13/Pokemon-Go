@@ -34,5 +34,8 @@ Josh -
 
 ## Setting up SDL  
 [For Windows users using codeblocks follow steps here](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/codeblocks/index.php)  
+If you are using a mac... GL  
+But for real if anyone knows how to set it up for a mac please put it on here!!!  
+
 
 

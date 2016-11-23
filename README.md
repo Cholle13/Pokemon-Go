@@ -8,7 +8,7 @@ I am not sure how to configure the SDL on the compiler I am currently using(Ecli
 Let's go ahead and assign people to different things and get this organized...(EDIT THIS TO CHOOSE WHAT YOU WANNA DO)  
 
 Ben -   
-Luke -  Spearhead documentation (flowchart and user manual)
+Luke -  Spearhead documentation (flowchart and user manual)  
 Parakh -  
 Chris - Draw pokemon and backgrounds figure out how to set up SDL  
 Josh -  

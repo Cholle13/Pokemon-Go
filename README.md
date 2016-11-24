@@ -36,7 +36,7 @@ Josh -  Moral Manager/Encouragement coordinator.
 [This is a video for setting it up on PC](https://www.youtube.com/watch?v=EtUw_7CvRRo)  
 [If you have a mac using codeblocks this works!!!](https://www.youtube.com/watch?v=Bi9BPEwEMDU)  
 Ya'll will also have to get the SDL Mixer as well.. Link is posted below   
-- So once ya'll get the Mixer you will have too...(For Mac)  
+- So once ya'll get the Mixer you will have too...(For Mac)(ps. configure and make and sudo make install the file the same way you did in the video before moving on)  
 1) Go to settings tab up top in code blocks  
 2) Click on compiler... from the drop down menu  
 3) then click on Linker Settings tab  

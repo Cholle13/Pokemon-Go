@@ -34,8 +34,12 @@ Josh -  Moral Manager/Encouragement coordinator.
 
 ## Setting up SDL  
 [For Windows users using codeblocks follow steps here](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/codeblocks/index.php)  
-If you are using a mac... GL  
 But for real if anyone knows how to set it up for a mac please put it on here!!!  
+- Okay so I am kinda figure it out...  
+- Basically you need to download the [SDL](https://www.libsdl.org/download-2.0.php) and the [SDL mixer](https://www.libsdl.org/projects/SDL_mixer/)  
+- Once you get those you have to go into your properties of the project you are working on and add the file path into the inclusions(So it knows where to look for the headers)  
+- I am still working on trying to figure out how to make the linker work with the SDL...  
+
 
 
 

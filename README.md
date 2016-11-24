@@ -10,7 +10,7 @@ Let's go ahead and assign people to different things and get this organized...(E
 Ben -   
 Luke -  Spearhead documentation (flowchart and user manual)  
 Parakh -  
-Chris - Draw pokemon and backgrounds figure out how to set up SDL  
+Chris - Draw pokemon and backgrounds figure out how to set up SDL  (HAS WORKING PLOTTER)  
 Josh -  Moral Manager/Encouragement coordinator.
 
 ## Things that need to be done

@@ -38,12 +38,14 @@ But for real if anyone knows how to set it up for a mac please put it on here!!!
 - Okay so I am kinda figure it out...  
 - Basically you need to download the [SDL](https://www.libsdl.org/download-2.0.php) and the [SDL mixer](https://www.libsdl.org/projects/SDL_mixer/)  
 - Once you get those you have to go into your properties of the project you are working on and add the file path into the inclusions(So it knows where to look for the headers)  
-- use this (-lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer) how to add..  
+- use this (-lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer) how to add..(or follow tutorial up there^    
 1) go to your project properties (right click on the project and its at the bottom)  
 2) the screen that pops up, go to project's build options... (bottom right of the screen)  
 3) Click the Linker tab  
-4) Paste that -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer in the right box (other linker options)
-5) Press ok
+4) Paste that -lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer in the right box (other linker options)  
+5) Press ok  
+6) Then in the SDL_Plotter code itself, remove the comments before the includes for Windows Library  
+7) You may have to remove the SDL2/ in the includes(not positive on windows)  
 - I am still working on trying to figure out how to make the linker work with the SDL...  
 
 

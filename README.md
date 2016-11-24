@@ -33,14 +33,14 @@ Josh -  Moral Manager/Encouragement coordinator.
 
 
 ## Setting up SDL  
-[For Windows users using codeblocks follow steps here](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/codeblocks/index.php) 
+[This is a video for setting it up on PC](https://www.youtube.com/watch?v=EtUw_7CvRRo)  
 [If you have a mac using codeblocks this works!!!](https://www.youtube.com/watch?v=Bi9BPEwEMDU)  
-But for real if anyone knows how to set it up for a mac please put it on here!!!  
-- Okay so I am kinda figure it out...  
-- Basically you need to download the [SDL](https://www.libsdl.org/download-2.0.php) and the [SDL mixer](https://www.libsdl.org/projects/SDL_mixer/)  
-- Once you get those you have to go into your properties of the project you are working on and add the file path into the inclusions(So it knows where to look for the headers)  
-- use this (-lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer) how to add..(or follow tutorial up there^  
-
-
-
-
+Ya'll will also have to get the SDL Mixer as well.. Link is posted below   
+- So once ya'll get the Mixer you will have too...(For Mac)  
+1) Go to settings tab up top in code blocks  
+2) Click on compiler... from the drop down menu  
+3) then click on Linker Settings tab  
+4) then on the Link libraries box: you will find and add button click it  
+5) then search your lib file in your local folder and add the SDL2_mixer-2.0.0.dylib and the SDL2_mixer.a  
+- I don't have code::blocks on a pc so not sure exactly how to do it but it should be similar to the mac... just watch the videos and add those two files in however you added them in for the pc :)  
+- You need these [SDL](https://www.libsdl.org/download-2.0.php) and the [SDL mixer](https://www.libsdl.org/projects/SDL_mixer/)  

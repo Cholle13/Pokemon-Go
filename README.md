@@ -33,7 +33,7 @@ Josh -  Moral Manager/Encouragement coordinator.
 
 
 ## Setting up SDL  
-[This is a video for setting it up on PC](https://www.youtube.com/watch?v=EtUw_7CvRRo)  
+[This is a step by step on how to set it up on PC! Should work this time guys](https://drive.google.com/open?id=0B6FSkvv5v9L3ZW9MT2l6dkZCMGc﻿)  
 [If you have a mac using codeblocks this works!!!](https://www.youtube.com/watch?v=Bi9BPEwEMDU)  
 Ya'll will also have to get the SDL Mixer as well.. Link is posted below   
 - So once ya'll get the Mixer you will have too...(For Mac)(ps. configure and make and sudo make install the file the same way you did in the video before moving on)  

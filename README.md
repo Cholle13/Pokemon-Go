@@ -44,3 +44,7 @@ Ya'll will also have to get the SDL Mixer as well.. Link is posted below
 5) then search your lib file in your local folder and add the SDL2_mixer-2.0.0.dylib and the SDL2_mixer.a  
 - I don't have code::blocks on a pc so not sure exactly how to do it but it should be similar to the mac... just watch the videos and add those two files in however you added them in for the pc :)  
 - You need these [SDL](https://www.libsdl.org/download-2.0.php) and the [SDL mixer](https://www.libsdl.org/projects/SDL_mixer/)  
+  
+## Tips for SDL  
+[This is a link with some references, idk if we will use em](https://www.libsdl.org/release/SDL-1.2.15/docs/html/index.html)  
+

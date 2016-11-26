@@ -30,8 +30,6 @@ int main(int argc, char ** argv)
                 boy.move(LEFT);
             }
             boy.erase(g);
-            boy.draw(g);
-            g.update();
         }
         
     }

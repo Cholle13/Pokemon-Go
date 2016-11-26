@@ -75,7 +75,7 @@ void Pokemon::erase(SDL_Plotter& g){
     
     for(int r =0; r < rows; r++){
         for(int c = 0; c < col; c++){
-            g.plotPixel(oldLoc.x + c, loc.y + r, 255, 255, 255);
+            g.plotPixel(oldLoc.x + c, oldLoc.y + r, 255, 255, 255);
         }
     }
     

@@ -3,17 +3,14 @@
 
 #include "SDL_Plotter.h"
 #include <fstream>
-#include <string>
 
 
 using namespace std;
 
-enum DIR {UP,DOWN,LEFT,RIGHT}; //directions
-enum RGB {R, G, B}; //color values
-
-
+enum DIR {UP,DOWN,LEFT,RIGHT};
+enum RGB {R, G, B};
 struct Point{
-    int x, y; 
+    int x, y;
     Point(int x = 0, int y =0);
 };
 
@@ -21,53 +18,38 @@ struct Point{
 Point::Point(int a, int b){
     x = a;
     y = b;
-
+    
 }
 
 struct Color{
     int R, G, B;
     Color(){
-        R = G = B = 255; 
+        R = G = B = 255;
     }
 };
-
 class Pokemon{
-    private:
-        Point loc; 
-        Point oldLoc;
-        Color picture[256][256];  //Pixel color R,G,B
-        int speed;
-        int rows;
-        int col;
-
-    public:
-        Pokemon();
-        void draw(SDL_Plotter&);
-        void erase(SDL_Plotter&);
-        void move(DIR);
-
+private:
+    Point loc;
+    Point oldLoc;
+    Color picture[256][256];  //Pixel color R,G,B
+    int speed;
+    int rows;
+    int col;
+    int x;
+    int y;
+    
+public:
+    Pokemon();
+    void draw(SDL_Plotter&);
+    void erase(SDL_Plotter&);
+    void move(DIR);
+    
 };
 
 Pokemon::Pokemon(){
-    ifstream file;
-    string fileName;
-    int pmon = rand() % 15; //random number modulus the number of pokemon we will have
-    
-    switch(pmon){
-        case 0: fileName = "Pokemon1.txt";
-            break;
-        case 1: fileName = "Pokemon2.txt";
-            break;
-        case 2: fileName = "Pokemon3.txt";
-            break;
-         //continue if more pokemon
-            
-    }
-    
-    file.open(c_str(fileName));
-    
-    loc.x = 250; 
-    loc.y = 300;
+    ifstream file ("boypic.txt");
+    loc.x = 200;
+    loc.y = 200;
     oldLoc = loc;
     speed = 10;
     file >> rows >> col;
@@ -78,7 +60,7 @@ Pokemon::Pokemon(){
             file >> picture[r][c].B;
         }
     }
-    file.close(); // don't know if this is needed
+    
 }
 
 void Pokemon::draw(SDL_Plotter& g){
@@ -90,33 +72,30 @@ void Pokemon::draw(SDL_Plotter& g){
 }
 
 void Pokemon::erase(SDL_Plotter& g){
-
+    
     for(int r =0; r < rows; r++){
         for(int c = 0; c < col; c++){
             g.plotPixel(oldLoc.x + c, loc.y + r, 255, 255, 255);
         }
     }
-
-
+    
+    
 }
 
 
-void Pokemon::move(){ //in main we can create a loop that makes the pokemon move and sleep
+void Pokemon::move(DIR d){
     oldLoc = loc;
-    int d = rand() % 4; // picks a random direction
-    
-    
     switch(d){
-        case 1: loc.y -= speed;
+        case UP: loc.y -= speed;
             break;
-        case 2: loc.y += speed;
+        case DOWN: loc.y += speed;
             break;
-        case 3: loc.x -= speed;
+        case LEFT: loc.x -= speed;
             break;
-        case 4: loc.x += speed;
+        case RIGHT: loc.x += speed;
             break;
     }
-
+    
 }
 
 

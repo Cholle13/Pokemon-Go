@@ -1,43 +1,38 @@
 #include <iostream>
-
+#include "Pokemon.h"
 #include "SDL_Plotter.h"
 
 using namespace std;
 
 int main(int argc, char ** argv)
 {
-
-	SDL_Plotter g(500, 500);
-    int x, y, xd, yd;
-    int R,G,B;
+    SDL_Plotter g(1000, 1000);
+    int x, y;
+ //   int R,G,B;
+    Pokemon boy;
     x = g.getCol()/2;
     y = g.getRow()/2;
-    R = 0;
-    G = 0;
-    B = 0;
     while (!g.getQuit())
     {
-    	g.plotPixel(x,y, 0, 0, 0);
-    	g.plotPixel(x+1,y, 0, 0, 0);
-    	g.plotPixel(x-1,y, 0, 0, 0);
-    	g.plotPixel(x,y+1, 0, 0, 0);
-    	g.plotPixel(x,y-1, 0, 0, 0);
-    	g.update();
-    	if(g.kbhit()){
-    	    if(g.getKey() == UP_ARROW){
-    	    	y--;
-    	    }
-    	    if(g.getKey() == DOWN_ARROW){
-				y++;
-			}
-    	    if(g.getKey() == RIGHT_ARROW){
-				x++;
-			}
-    	    if(g.getKey() == LEFT_ARROW){
-				x--;
-			}
-			g.clear();
-    	}
-
+        boy.draw(g);
+        g.update();
+        if(g.kbhit()){
+            if(g.getKey() == UP_ARROW){
+                boy.move(UP);
+            }
+            if(g.getKey() == DOWN_ARROW){
+                boy.move(DOWN);
+            }
+            if(g.getKey() == RIGHT_ARROW){
+                boy.move(RIGHT);
+            }
+            if(g.getKey() == LEFT_ARROW){
+                boy.move(LEFT);
+            }
+            boy.erase(g);
+            boy.draw(g);
+            g.update();
+        }
+        
     }
 }

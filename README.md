@@ -7,11 +7,11 @@ I am not sure how to configure the SDL on the compiler I am currently using(Ecli
 ## Ideas???  
 Let's go ahead and assign people to different things and get this organized...(EDIT THIS TO CHOOSE WHAT YOU WANNA DO)  
 
-Ben -   
+Ben - Figure out audio and implement  
 Luke -  Spearhead documentation (flowchart and user manual)  
-Parakh -  
-Chris - Draw pokemon and backgrounds figure out how to set up SDL  (HAS WORKING PLOTTER)  
-Josh -  Moral Manager/Encouragement coordinator.
+Parakh - Figure out Start Menu and Work with Code  
+Chris - Draw pokemon and backgrounds figure out how to set up SDL  (HAS WORKING PLOTTER) Work on integrating everything together and organization   
+Josh -  Moral Manager/Encouragement coordinator. Same as Parakh(work together)   
 
 ## Things that need to be done
 1)  START  

@@ -34,6 +34,7 @@ Josh -  Moral Manager/Encouragement coordinator. Same as Parakh(work together)
 
 ## Setting up SDL  
 [Visual Studio](https://www.visualstudio.com/vs/)  
+[this looks like a good tutorial on VS](http://xeekworx.com/sdl2guides/14-sdl2guides-setupvs)  
 
 [If you have a mac using codeblocks this works!!!](https://www.youtube.com/watch?v=Bi9BPEwEMDU)  
 Ya'll will also have to get the SDL Mixer as well.. Link is posted below   

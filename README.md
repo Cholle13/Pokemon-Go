@@ -32,7 +32,17 @@ Josh -  Moral Manager/Encouragement coordinator. Same as Parakh(work together)
 5) [Here is a Cheatsheat on using markup](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)  
 
 
-## Setting up SDL  
+## Setting up SDL
+
+[Code::Blocks PC Tutorial](https://www.youtube.com/watch?v=wWGtuc5uqF4)
+- The video is vague at times but it helped me.  
+- Some tips   
+    1) you don't need to watch the full video (I only needed to watch about 10 minutes of it)  
+    2) Follow the steps closely  
+    3) When he talks about the .dll files, just paste those into the project folder  
+    4) don't forget to remove the comments in the .h file  
+
+
 [Visual Studio](https://www.visualstudio.com/vs/)  
 [this looks like a good tutorial on VS](http://xeekworx.com/sdl2guides/14-sdl2guides-setupvs)  
 

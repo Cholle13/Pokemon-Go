@@ -18,7 +18,7 @@ struct Point{
 Point::Point(int a, int b){
     x = a;
     y = b;
-    
+
 }
 
 struct Color{
@@ -29,7 +29,7 @@ struct Color{
 };
 class Pokemon{
 private:
-    Point loc;
+
     Point oldLoc;
     Color picture[256][256];  //Pixel color R,G,B
     int speed;
@@ -37,19 +37,22 @@ private:
     int col;
     int x;
     int y;
-    
+
 public:
-    Pokemon();
+    Pokemon(string);
+    Point loc;
     void draw(SDL_Plotter&);
     void erase(SDL_Plotter&);
     void move(DIR);
-    
+
 };
 
-Pokemon::Pokemon(){
-    ifstream file ("boypic.txt");
-    loc.x = 200;
-    loc.y = 200;
+
+Pokemon::Pokemon(string filename){
+    string name = filename;
+    ifstream file(name.c_str());
+    loc.x = (rand()%900) + 2;
+    loc.y = (rand()%900) + 2;
     oldLoc = loc;
     speed = 10;
     file >> rows >> col;
@@ -60,7 +63,7 @@ Pokemon::Pokemon(){
             file >> picture[r][c].B;
         }
     }
-    
+
 }
 
 void Pokemon::draw(SDL_Plotter& g){
@@ -72,14 +75,14 @@ void Pokemon::draw(SDL_Plotter& g){
 }
 
 void Pokemon::erase(SDL_Plotter& g){
-    
+
     for(int r =0; r < rows; r++){
         for(int c = 0; c < col; c++){
             g.plotPixel(oldLoc.x + c, oldLoc.y + r, 255, 255, 255);
         }
     }
-    
-    
+
+
 }
 
 
@@ -95,7 +98,7 @@ void Pokemon::move(DIR d){
         case RIGHT: loc.x += speed;
             break;
     }
-    
+
 }
 
 

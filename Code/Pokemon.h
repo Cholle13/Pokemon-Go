@@ -69,7 +69,9 @@ Pokemon::Pokemon(string filename){
 void Pokemon::draw(SDL_Plotter& g){
     for(int r = 0; r < rows; r++){
         for(int c = 0; c < col; c++){
-            g.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
+            if(picture[r][c].R != 255 || picture[r][c].G != 255 || picture[r][c].B != 255){
+                g.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
+            }
         }
     }
 }

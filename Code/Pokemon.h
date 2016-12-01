@@ -15,11 +15,9 @@ struct Point{
     Point(int x = 0, int y =0);
 };
 
-
 Point::Point(int a, int b){
     x = a;
-    y = b;
-    
+    y = b;  
 }
 
 struct Color{
@@ -30,9 +28,10 @@ struct Color{
 };
 class Pokemon{
 private:
-    
+    //All these CLASSY MEMBERS... HAHAHA
     Point oldLoc;
     //Color picture[256][256];
+    //I remember when we used ^ because vectors weren't our friends
     vector< vector<Color> > picture;
     //Pixel color R,G,B
     int speed;
@@ -42,7 +41,7 @@ private:
     int y;
     
 public:
-    
+    // Look at all those fancy methods
     Pokemon(string);
     Pokemon(int);
     Point loc;
@@ -52,14 +51,30 @@ public:
     void move(DIR);
     Point getOldLoc();
     void pokMove(SDL_Plotter& g);
+    void setSpeed(int a);
+    void setLoc(int, int);
     
 };
-
+//Don't think I had to use this but hey here it is
 Point Pokemon::getOldLoc(){
     return oldLoc;
 }
+//This is for setting the speed of the ball and anything really
+void Pokemon::setSpeed(int a){
+    speed = a;
+}
+
+// This function is for if you need to put something in a specific spot other than the 
+// Random placement that the constructor gives
+void Pokemon::setLoc(int x, int y){
+    loc.x = x;
+    loc.y = y;
+}
+
+//Constructor for the Background(we can have multiple backgrounds)
 Pokemon::Pokemon(int a){
     picture.resize(1000, vector<Color>(1000));
+    //add background text files to the array
     string bkgrds[5] = {"BabyBack.txt"};
     string name = bkgrds[a];
     ifstream file(name.c_str());
@@ -74,9 +89,11 @@ Pokemon::Pokemon(int a){
             file >> picture[r][c].B;
         }
     }
+    //Can't forget to close our files!
     file.close();
     
 }
+//Constructor for PokemAns
 Pokemon::Pokemon(string filename){
     picture.resize(256, vector<Color>(256));
     string name = filename;
@@ -93,6 +110,7 @@ Pokemon::Pokemon(string filename){
             file >> picture[r][c].B;
         }
     }
+    //Can't forget to close our files!
     file.close();
     
 }
@@ -104,32 +122,27 @@ void Pokemon::draw(SDL_Plotter& g){
                 g.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
             }
         }
-    }
-    
+    }  
 }
 
-//Sneaky way to change the Sprite to one of your choosing
+//Sneaky way to change the Sprite to one of your choosing(CLEVER AMIRITE?)
 void Pokemon::draw(SDL_Plotter& g, string boy){
     Pokemon sneak(boy);
     sneak.loc = loc;
     sneak.draw(g);
-    //picture.clear();
 }
 
-
+//Erases the sprite in its old location(HANDY DANDY)
 void Pokemon::erase(SDL_Plotter& g){
-    
     for(int r =0; r < rows; r++){
         for(int c = 0; c < col; c++){
             if(picture[r][c].R != 255 || picture[r][c].G != 255 || picture[r][c].B != 255)
                 g.plotPixel(oldLoc.x + c, oldLoc.y + r, 255, 255, 255);
         }
-    }
-    
-    
+    }   
 }
 
-
+//This makes are lives easier(PHEWWW)
 void Pokemon::move(DIR d){
     oldLoc = loc;
     switch(d){
@@ -145,10 +158,12 @@ void Pokemon::move(DIR d){
     
 }
 
+//This is so that the PokemAns move randomly(COOLIO)
 void Pokemon::pokMove(SDL_Plotter& g){
     int mov = rand()%4;
     int freq = rand()%500;
     if(freq == 250){
+        //Looks like we are Switchin things up... HAHAHAHA puns
         switch(mov){
             case 0: if(loc.y > 1)move(UP);
                 break;
@@ -160,11 +175,11 @@ void Pokemon::pokMove(SDL_Plotter& g){
         }
         
     }
-    erase(g);
-    
+    //hey look they erase themselves when the move :)
+    erase(g); 
 }
 
-// MENU STUFF
+// MENU STUFF (BEN'S AREA OF EXPERTISE STAY OUT)
 class Menu{
 private:
     Point loc;
@@ -219,12 +234,12 @@ void Menu::erase(SDL_Plotter& menu){
         
     }
 }
+//END OF MENU STUFF
+
 
 //File names of pokemon stored here
 string getName(int a){
     string pokemon[15] = {"Marill", "Omanyte", "Pikachu", "pokemon1", "Squirtle", "BabyBack.txt"};
-    //string name = "Marill", name2 = "Omanyte", name3 = "Pikachu", name4 = "pokemon1", name5= "Squirtle";
-    //int num = rand() % 4;
 
     return pokemon[a];
 }
@@ -238,3 +253,4 @@ string getCharMove(int a){
 }
 
 #endif // POKEMON_H_INCLUDED
+

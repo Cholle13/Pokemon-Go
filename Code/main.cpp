@@ -31,7 +31,7 @@ int main(int argc, char ** argv)
         int x, y;
         //   int R,G,B;
         
-        //Sets up the Pokemon objects
+        //sets up the Pokemon objects
         //there are two constructors...
         //this one(int)
         Pokemon BackGround(0);
@@ -47,8 +47,8 @@ int main(int argc, char ** argv)
         x = g.getCol()/2;
         y = g.getRow()/2;
         //uncomment these when sound works?
-      //  g.initSound("background1");
-     //   g.playSound("background1");
+        //    g.initSound("background1");
+        //    g.playSound("background1");
         
         //declare some fun variables
         int num = 0, timer = 0, moveCount = 0;
@@ -75,9 +75,9 @@ int main(int argc, char ** argv)
             g.update();
             pokeball.erase(g);
             
-            //This if statement is pretty self explanatory
+            //this if statement is pretty self-explanatory
             if(g.kbhit()){
-                //Up array stuff
+                //up arrow stuff
                 if(g.getKey() == UP_ARROW &&  boy.loc.y > 1){
                     boy.move(UP);
                     if(num == 4)
@@ -145,7 +145,7 @@ int main(int argc, char ** argv)
                 }
                 boy.erase(g);
             }
-            // These are what keeps the ball moving change the moveCount to increase distance shoot
+            //these keep the ball moving - change the moveCount to increase distance shoot
             if(down && moveCount != 20){
                 pokeball.move(DOWN);
                 moveCount++;
@@ -167,8 +167,8 @@ int main(int argc, char ** argv)
                 up = right = left = down = false;
                 pokeball.erase(g);
             }
-            //This timer thing is to make the dude assume the stationary position after not moving
-            // for a certain amount of time...
+            //this timer thing is to make the dude assume the stationary position after not moving
+            //    for a certain amount of time...
             timer++;
             if(!g.kbhit() && timer >= 30){
                 if(num == 1 || num == 2)

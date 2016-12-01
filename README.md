@@ -9,7 +9,7 @@ Let's go ahead and assign people to different things and get this organized...(E
 
 Ben - Figure out audio and implement. Work with Code.  
 Luke -  Spearhead documentation (flowchart and user manual)  
-Parakh - Figure out Start Menu and Work with Code  
+Parakh - Figure out Start Menu and Work with Code / be awesome  
 Chris - Draw pokemon and backgrounds figure out how to set up SDL  (HAS WORKING PLOTTER) Work on integrating everything together and organization   
 Josh -  Moral Manager/Encouragement coordinator. Same as Parakh(work together)   
 

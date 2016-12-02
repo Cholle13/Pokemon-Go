@@ -57,6 +57,9 @@ int main(int argc, char ** argv)
         //keeps running until ESC key is pressed
         while (!g.getQuit())
         {
+            //DRAWS TEXT 
+           // drawText("testText",g);
+            //drawText ("drboothTextBox",g);
             BackGround.draw(g);
             pokemon5.draw(g);
             pokemon4.draw(g);

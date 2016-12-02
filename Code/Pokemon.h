@@ -251,6 +251,45 @@ string getCharMove(int a){
     
     return character[a];
 }
+// DRAWS PICTURES
+/*void drawText(string filename, SDL_Plotter& g)
+{
+    vector< vector<Color> > picture;
+    //Pixel color R,G,B
+    int speed;
+    int rows;
+    int col;
+    int x;
+    int y;
+    Point oldLoc;
+    Point loc;
+    picture.resize(500, vector<Color>(500));
+    string name = filename;
+    ifstream file(name.c_str());
+    loc.x = (300);
+    loc.y = (600);
+    oldLoc = loc;
+    speed = 10;
+    file >> rows >> col;
+    for(int r = 0; r < rows; r++){
+        for(int c = 0; c < col; c++){
+            file >> picture[r][c].R;
+            file >> picture[r][c].G;
+            file >> picture[r][c].B;
+        }
+    }
+    //Can't forget to close our files!
+    file.close();
+
+    for(int r = 0; r < rows; r++){
+        for(int c = 0; c < col; c++){
+            if(picture[r][c].R != 255 || picture[r][c].G != 255 || picture[r][c].B != 255){
+                g.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
+            }
+        }
+    }
+    }
+    */
 
 #endif // POKEMON_H_INCLUDED
 

@@ -15,9 +15,11 @@ struct Point{
     Point(int x = 0, int y =0);
 };
 
+
 Point::Point(int a, int b){
     x = a;
-    y = b;  
+    y = b;
+    
 }
 
 struct Color{
@@ -39,6 +41,7 @@ private:
     int col;
     int x;
     int y;
+    bool alive;
     
 public:
     // Look at all those fancy methods
@@ -46,6 +49,8 @@ public:
     Pokemon(int);
     Point loc;
     void draw(SDL_Plotter&);
+    bool getAlive();
+    void setAlive(bool);
     void draw(SDL_Plotter&, string);
     void erase(SDL_Plotter&);
     void move(DIR);
@@ -55,6 +60,7 @@ public:
     void setLoc(int, int);
     
 };
+
 //Don't think I had to use this but hey here it is
 Point Pokemon::getOldLoc(){
     return oldLoc;
@@ -64,11 +70,20 @@ void Pokemon::setSpeed(int a){
     speed = a;
 }
 
-// This function is for if you need to put something in a specific spot other than the 
+// This function is for if you need to put something in a specific spot other than the
 // Random placement that the constructor gives
 void Pokemon::setLoc(int x, int y){
     loc.x = x;
     loc.y = y;
+}
+
+//This is used to return if the Pokemon is alive or not
+bool Pokemon::getAlive(){
+    return alive;
+}
+//This is to set if pokemon got hit or not
+void Pokemon::setAlive(bool test){
+    alive = test;
 }
 
 //Constructor for the Background(we can have multiple backgrounds)
@@ -91,8 +106,8 @@ Pokemon::Pokemon(int a){
     }
     //Can't forget to close our files!
     file.close();
-    
 }
+
 //Constructor for PokemAns
 Pokemon::Pokemon(string filename){
     picture.resize(256, vector<Color>(256));
@@ -101,6 +116,7 @@ Pokemon::Pokemon(string filename){
     loc.x = (rand()%900) + 2;
     loc.y = (rand()%900) + 2;
     oldLoc = loc;
+    alive = true;
     speed = 10;
     file >> rows >> col;
     for(int r = 0; r < rows; r++){
@@ -112,7 +128,6 @@ Pokemon::Pokemon(string filename){
     }
     //Can't forget to close our files!
     file.close();
-    
 }
 //Basic Draw Function
 void Pokemon::draw(SDL_Plotter& g){
@@ -122,7 +137,8 @@ void Pokemon::draw(SDL_Plotter& g){
                 g.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
             }
         }
-    }  
+    }
+    
 }
 
 //Sneaky way to change the Sprite to one of your choosing(CLEVER AMIRITE?)
@@ -130,16 +146,20 @@ void Pokemon::draw(SDL_Plotter& g, string boy){
     Pokemon sneak(boy);
     sneak.loc = loc;
     sneak.draw(g);
+    //picture.clear();
 }
 
 //Erases the sprite in its old location(HANDY DANDY)
 void Pokemon::erase(SDL_Plotter& g){
+    
     for(int r =0; r < rows; r++){
         for(int c = 0; c < col; c++){
             if(picture[r][c].R != 255 || picture[r][c].G != 255 || picture[r][c].B != 255)
                 g.plotPixel(oldLoc.x + c, oldLoc.y + r, 255, 255, 255);
         }
-    }   
+    }
+    
+    
 }
 
 //This makes are lives easier(PHEWWW)
@@ -157,7 +177,6 @@ void Pokemon::move(DIR d){
     }
     
 }
-
 //This is so that the PokemAns move randomly(COOLIO)
 void Pokemon::pokMove(SDL_Plotter& g){
     int mov = rand()%4;
@@ -176,65 +195,9 @@ void Pokemon::pokMove(SDL_Plotter& g){
         
     }
     //hey look they erase themselves when the move :)
-    erase(g); 
-}
-
-// MENU STUFF (BEN'S AREA OF EXPERTISE STAY OUT)
-class Menu{
-private:
-    Point loc;
-    //Color picture[1080][1920];
-    vector< vector<Color> > picture;
-    int rows;
-    int col;
-    int x;
-    int y;
-    
-    
-public:
-    Menu(string);
-    void draw(SDL_Plotter&);
-    void erase(SDL_Plotter&);
-    
-};
-
-Menu::Menu(string fileName){
-    picture.resize(1000, vector<Color>(1000));
-    string name = fileName;
-    ifstream file(name.c_str());
-    loc.x = 0;
-    loc.y = 0;
-    file >> rows >> col;
-    for(int r = 0; r < rows; r++){
-        for(int c = 0; c < col; c++){
-            file >> picture[r][c].R;
-            file >> picture[r][c].G;
-            file >> picture[r][c].B;
-        }
-    }
-    
+    erase(g);
     
 }
-
-void Menu::draw(SDL_Plotter& menu){
-    for(int r = 0; r < rows; r++){
-        for(int c = 0; c < col; c++){
-                menu.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
-        }
-    }
-    //picture.clear();
-    
-}
-
-void Menu::erase(SDL_Plotter& menu){
-    for(int r =0; r < rows; r++){
-        for(int c = 0; c < col; c++){
-            menu.plotPixel(loc.x + c, loc.y + r, 255, 255, 255);
-        }
-        
-    }
-}
-//END OF MENU STUFF
 
 
 //File names of pokemon stored here
@@ -251,45 +214,43 @@ string getCharMove(int a){
     
     return character[a];
 }
+
 // DRAWS PICTURES
 /*void drawText(string filename, SDL_Plotter& g)
-{
-    vector< vector<Color> > picture;
-    //Pixel color R,G,B
-    int speed;
-    int rows;
-    int col;
-    int x;
-    int y;
-    Point oldLoc;
-    Point loc;
-    picture.resize(500, vector<Color>(500));
-    string name = filename;
-    ifstream file(name.c_str());
-    loc.x = (300);
-    loc.y = (600);
-    oldLoc = loc;
-    speed = 10;
-    file >> rows >> col;
-    for(int r = 0; r < rows; r++){
-        for(int c = 0; c < col; c++){
-            file >> picture[r][c].R;
-            file >> picture[r][c].G;
-            file >> picture[r][c].B;
-        }
-    }
-    //Can't forget to close our files!
-    file.close();
-
-    for(int r = 0; r < rows; r++){
-        for(int c = 0; c < col; c++){
-            if(picture[r][c].R != 255 || picture[r][c].G != 255 || picture[r][c].B != 255){
-                g.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
-            }
-        }
-    }
-    }
-    */
-
+ {
+ vector< vector<Color> > picture;
+ //Pixel color R,G,B
+ int speed;
+ int rows;
+ int col;
+ int x;
+ int y;
+ Point oldLoc;
+ Point loc;
+ picture.resize(500, vector<Color>(500));
+ string name = filename;
+ ifstream file(name.c_str());
+ loc.x = (300);
+ loc.y = (600);
+ oldLoc = loc;
+ speed = 10;
+ file >> rows >> col;
+ for(int r = 0; r < rows; r++){
+ for(int c = 0; c < col; c++){
+ file >> picture[r][c].R;
+ file >> picture[r][c].G;
+ file >> picture[r][c].B;
+ }
+ }
+ //Can't forget to close our files!
+ file.close();
+ for(int r = 0; r < rows; r++){
+ for(int c = 0; c < col; c++){
+ if(picture[r][c].R != 255 || picture[r][c].G != 255 || picture[r][c].B != 255){
+ g.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
+ }
+ }
+ }
+ }
+ */
 #endif // POKEMON_H_INCLUDED
-

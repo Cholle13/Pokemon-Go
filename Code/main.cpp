@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Pokemon.h"
 #include "SDL_Plotter.h"
+#include "Menu.h"
+#include "Pokeball.h"
 
 using namespace std;
 
@@ -24,7 +26,7 @@ int main(int argc, char ** argv)
         
     }
     
-    //SOMEONE PLEASE EXPLAIN THIS CONFUSING IF STATEMENT - CHRIS
+    
     if(!onMenu){
         
         SDL_Plotter g(1000, 1000);
@@ -36,6 +38,7 @@ int main(int argc, char ** argv)
         //this one(int)
         Pokemon BackGround(0);
         //and these(string)
+        Pokemon test(getName(0));
         Pokemon pokemon5(getName(4));
         Pokemon pokemon4(getName(3));
         Pokemon pokemon3(getName(2));
@@ -43,12 +46,14 @@ int main(int argc, char ** argv)
         Pokemon pokemon1(getName(0));
         Pokemon boy(getCharMove(0));
         Pokemon pokeball("Pokeball");
+        Pokemon poke_Collection[5] = {pokemon1, pokemon2, pokemon3, pokemon4, pokemon5};
         
         x = g.getCol()/2;
         y = g.getRow()/2;
+        
         //uncomment these when sound works?
-        //    g.initSound("background1");
-        //    g.playSound("background1");
+      //  g.initSound("background1");
+     //   g.playSound("background1");
         
         //declare some fun variables
         int num = 0, timer = 0, moveCount = 0;
@@ -57,15 +62,25 @@ int main(int argc, char ** argv)
         //keeps running until ESC key is pressed
         while (!g.getQuit())
         {
-            //DRAWS TEXT 
-           // drawText("testText",g);
+            //DRAWS TEXT
+            // drawText("testText",g);
             //drawText ("drboothTextBox",g);
+        
+            //draw sprites
             BackGround.draw(g);
-            pokemon5.draw(g);
-            pokemon4.draw(g);
-            pokemon3.draw(g);
-            pokemon2.draw(g);
-            pokemon1.draw(g);
+            
+            //This test if pokemon are alive and if so keep drawing them
+            if(poke_Collection[4].getAlive())
+                poke_Collection[4].draw(g);
+            if(poke_Collection[3].getAlive())
+                poke_Collection[3].draw(g);
+            if(poke_Collection[2].getAlive())
+                poke_Collection[2].draw(g);
+            if(poke_Collection[1].getAlive())
+                poke_Collection[1].draw(g);
+            if(poke_Collection[0].getAlive())
+                poke_Collection[0].draw(g);
+            
             //this is to initialize the booleans
             if(timer == 0){
                 up = down = right = left = false;
@@ -79,6 +94,7 @@ int main(int argc, char ** argv)
             pokeball.erase(g);
             
             //this if statement is pretty self-explanatory
+            //Determines which Boy sprite to use
             if(g.kbhit()){
                 //up arrow stuff
                 if(g.getKey() == UP_ARROW &&  boy.loc.y > 1){
@@ -115,6 +131,8 @@ int main(int argc, char ** argv)
                     else
                         num = 10;
                 }
+                
+                //Finds which way the pokeball needs to move(Make function that return loc of ball)
                 //test if Spacebar is pressed if so set start location of pokeball
                 if(g.getKey() == ' ' && !down && !up && !right && !left){
                     switch(num){
@@ -148,30 +166,49 @@ int main(int argc, char ** argv)
                 }
                 boy.erase(g);
             }
+            
+            //POKEBALL STUFF
             //these keep the ball moving - change the moveCount to increase distance shoot
+            //if hits pokemon before moving the distance, stop movement
             if(down && moveCount != 20){
                 pokeball.move(DOWN);
                 moveCount++;
+                if(hit(pokeball, poke_Collection[closest_Pokemon(pokeball, poke_Collection)])){
+                    moveCount = 20;
+                }
             }
             if(up && moveCount != 20){
                 pokeball.move(UP);
                 moveCount++;
+                if(hit(pokeball, poke_Collection[closest_Pokemon(pokeball, poke_Collection)])){
+                    moveCount = 20;
+                }
             }
             if(right && moveCount != 20){
                 pokeball.move(RIGHT);
                 moveCount++;
+                if(hit(pokeball, poke_Collection[closest_Pokemon(pokeball, poke_Collection)])){
+                    moveCount = 20;
+                }
             }
             if(left && moveCount != 20){
                 pokeball.move(LEFT);
                 moveCount++;
+                if(hit(pokeball, poke_Collection[closest_Pokemon(pokeball, poke_Collection)])){
+                    moveCount = 20;
+                }
             }
+            //this is for when it reaches it's destination, erases pokemon and changes them to dead
             if(moveCount == 20){
                 moveCount = 0;
                 up = right = left = down = false;
-                pokeball.erase(g);
+                if(hit(pokeball, poke_Collection[closest_Pokemon(pokeball, poke_Collection)])){
+                    poke_Collection[closest_Pokemon(pokeball, poke_Collection)].setAlive(false);
+                    pokeball.erase(g);
+                    poke_Collection[closest_Pokemon(pokeball, poke_Collection)].erase(g);
+                }
             }
-            //this timer thing is to make the dude assume the stationary position after not moving
-            //    for a certain amount of time...
+            //Changes character back to still after a certain time
             timer++;
             if(!g.kbhit() && timer >= 30){
                 if(num == 1 || num == 2)
@@ -188,11 +225,12 @@ int main(int argc, char ** argv)
             
             //random number for direction
             //random number to space out movement of pokemon
-            pokemon5.pokMove(g);
-            pokemon4.pokMove(g);
-            pokemon3.pokMove(g);
-            pokemon2.pokMove(g);
-            pokemon1.pokMove(g);
+            //random_Move(poke_Collection); <--- Implement this - todo - chris
+            poke_Collection[4].pokMove(g);
+            poke_Collection[3].pokMove(g);
+            poke_Collection[2].pokMove(g);
+            poke_Collection[1].pokMove(g);
+            poke_Collection[0].pokMove(g);
             
             
         }

@@ -75,7 +75,7 @@ int main(int argc, char ** argv)
             g.update();
             pokeball.erase(g);
 
-            //displays the text box and keeps it up until A is pressed
+            //displays the text box and keeps it up until time expires
             while(!play){
                 text.drawNoWhite(g);
                 g.update();

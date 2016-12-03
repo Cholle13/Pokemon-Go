@@ -78,13 +78,12 @@ int main(int argc, char ** argv)
             //displays the text box and keeps it up until A is pressed
             while(!play){
                 text.drawNoWhite(g);
-                /*g.update();
-                g.Sleep(1000);
-                text.erase(g);
+                g.update();
+                g.Sleep(10000);
                 text.change("textbox3");
                 text.drawNoWhite(g);
-                */
                 g.update();
+                g.Sleep(5000);
                 if(g.kbhit()){
                     if(g.getKey() == 'A'){
                         play = true;
@@ -222,5 +221,7 @@ int main(int argc, char ** argv)
             }
         }
     }
+    
+    return 0;
 }
 //} Magical totem bracket - DO NOT TOUCH

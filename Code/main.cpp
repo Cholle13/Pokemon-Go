@@ -8,66 +8,64 @@ using namespace std;
 
 int main(int argc, char ** argv)
 {
-    //MENU STUFF(BEN'S AREA OF EXPERTISE STAY OUT)
-    bool select = false;
-    bool onMenu = true;
-    SDL_Plotter menu(1000, 1000);
-    Menu background("MenuBkrd");
-    background.draw(menu);
-    menu.update();
-    while(!select){
-        if(menu.kbhit()){
-            if(menu.getKey() == 'S'){
-                select = true;
-                onMenu = false;
-            }
-            
-        }
-        
-    }
-    
-    
-    if(!onMenu){
-        
+
+
         SDL_Plotter g(1000, 1000);
         int x, y;
         //   int R,G,B;
-        
+
         //sets up the Pokemon objects
         //there are two constructors...
         //this one(int)
+        Menu background("MenuBkrd");
+        Menu text("textbox2");
         Pokemon BackGround(0);
+        bool select = false;
+        bool onMenu = true;
+        bool play = false;
         //and these(string)
         Pokemon test(getName(0));
         Pokemon boy(getCharMove(0));
         Pokemon pokeball("Pokeball");
         Pokemon poke_Collection[15];
         init_PokeDex(poke_Collection);
-        
+
         x = g.getCol()/2;
         y = g.getRow()/2;
-        
+
         //uncomment these when sound works?
-        //  g.initSound("background1");
-        //   g.playSound("background1");
-        
+        g.initSound("background1");
+        g.playSound("background1");
+
         //declare some fun variables
         int spriteNum = 0, timer = 0, moveCount = 0;
         bool up, down, left, right;
-        
+
         //keeps running until ESC key is pressed
         while (!g.getQuit())
         {
-            //DRAWS TEXT
-            // drawText("testText",g);
-            //drawText ("drboothTextBox",g);
-            
+            //loads menu and keeps open until the escape keyh is pressed or s is pressed
+            while(!select && !g.getQuit()){
+                background.draw(g);
+                if(g.kbhit()){
+                    if(g.getKey() == 'S'){
+                        select = true;
+                        onMenu = false;
+                    }
+
+                }
+                g.update();
+
+        }
+
+
+            //plays game after done with menu
+            if(!onMenu){
             //draw sprites
             BackGround.draw(g);
-            
             //This test if pokemon are alive and if so keep drawing them
             alive_draw(poke_Collection, g);
-            
+
             //this is to initialize the booleans
             if(timer == 0){
                 up = down = right = left = false;
@@ -79,7 +77,34 @@ int main(int argc, char ** argv)
             boy.draw(g, getCharMove(spriteNum));
             g.update();
             pokeball.erase(g);
-            
+
+
+
+
+
+            //displays the text box and keeps it up until A is pressed
+            while(!play){
+
+                text.drawNoWhite(g);
+                /*g.update();
+                g.Sleep(1000);
+                text.erase(g);
+                text.change("textbox3");
+                text.drawNoWhite(g);
+                */
+                g.update();
+                if(g.kbhit()){
+                    if(g.getKey() == 'A'){
+                        play = true;
+                    }
+
+                }
+
+            }
+
+        //when done with textbox it allows for movement
+        if(play){
+
             //this if statement is pretty self-explanatory
             //Determines which Boy sprite to use
             if(g.kbhit()){
@@ -118,7 +143,7 @@ int main(int argc, char ** argv)
                     else
                         spriteNum = 10;
                 }
-                
+
                 //Finds which way the pokeball needs to move(Make function that return loc of ball)
                 //test if Spacebar is pressed if so set start location of pokeball
                 if(g.getKey() == ' ' && !down && !up && !right && !left){
@@ -149,11 +174,11 @@ int main(int argc, char ** argv)
                             pokeball.setLoc(boy.loc.x, boy.loc.y + 15);
                             break;
                     }
-                    
+
                 }
                 boy.erase(g);
             }
-            
+
             //POKEBALL STUFF
             //these keep the ball moving - change the moveCount to increase distance shoot
             //if hits pokemon before moving the distance, stop movement
@@ -198,14 +223,17 @@ int main(int argc, char ** argv)
             //Changes character back to still after a certain time
             timer++;
             if(!g.kbhit() && timer >= 30){
-                spriteNum = boy_StandStill(spriteNum);
+                boy_StandStill(spriteNum);
                 timer = 1;
             }
-            
+
             //random number for direction
             //random number to space out movement of pokemon
             random_Move(poke_Collection, g);
         }
-        
+        }
+      }
+
     }
-}
+//}
+

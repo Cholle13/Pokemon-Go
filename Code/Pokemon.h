@@ -28,6 +28,7 @@ struct Color{
         R = G = B = 255;
     }
 };
+
 class Pokemon{
 private:
     //All these CLASSY MEMBERS... HAHAHA
@@ -47,6 +48,7 @@ public:
     // Look at all those fancy methods
     Pokemon(string);
     Pokemon(int);
+    Pokemon();
     Point loc;
     void draw(SDL_Plotter&);
     bool getAlive();
@@ -60,6 +62,13 @@ public:
     void setLoc(int, int);
     
 };
+
+string getName(int a);
+string getCharMove(int a);
+void random_Move(Pokemon[], SDL_Plotter&);
+void init_PokeDex(Pokemon[]);
+int boy_StandStill(int);
+void alive_draw(Pokemon[], SDL_Plotter&);
 
 //Don't think I had to use this but hey here it is
 Point Pokemon::getOldLoc(){
@@ -85,7 +94,53 @@ bool Pokemon::getAlive(){
 void Pokemon::setAlive(bool test){
     alive = test;
 }
+//This is to make all the pokemon move randomly (automates it for us)
+void random_Move(Pokemon poke_Collection[], SDL_Plotter& g){
+    for(int i = 0; i < 5; i++){
+        poke_Collection[i].pokMove(g);
+    }
+}
 
+void init_PokeDex(Pokemon poke_Collection[]){ 
+    for(int i = 0; i < 5; i++){
+        Pokemon inPoke(getName(i));
+        poke_Collection[i] = inPoke;
+    }
+}
+
+int boy_StandStill(int num){
+    
+    if(num == 1 || num == 2)
+        num = 0;
+    if(num == 4 || num == 5)
+        num = 3;
+    if(num == 7 || num == 8)
+        num = 6;
+    if(num == 10 || num == 11)
+        num = 9;
+    return num;
+}
+
+void alive_draw(Pokemon poke_Collection[], SDL_Plotter& g){
+    if(poke_Collection[4].getAlive())
+        poke_Collection[4].draw(g);
+    if(poke_Collection[3].getAlive())
+        poke_Collection[3].draw(g);
+    if(poke_Collection[2].getAlive())
+        poke_Collection[2].draw(g);
+    if(poke_Collection[1].getAlive())
+        poke_Collection[1].draw(g);
+    if(poke_Collection[0].getAlive())
+        poke_Collection[0].draw(g);
+}
+
+Pokemon::Pokemon(){
+    loc.x = (rand()%900) + 2;
+    loc.y = (rand()%900) + 2;
+    oldLoc = loc;
+    alive = true;
+    speed = 10;
+}
 //Constructor for the Background(we can have multiple backgrounds)
 Pokemon::Pokemon(int a){
     picture.resize(1000, vector<Color>(1000));
@@ -129,6 +184,7 @@ Pokemon::Pokemon(string filename){
     //Can't forget to close our files!
     file.close();
 }
+
 //Basic Draw Function
 void Pokemon::draw(SDL_Plotter& g){
     for(int r = 0; r < rows; r++){
@@ -138,7 +194,6 @@ void Pokemon::draw(SDL_Plotter& g){
             }
         }
     }
-    
 }
 
 //Sneaky way to change the Sprite to one of your choosing(CLEVER AMIRITE?)
@@ -151,15 +206,12 @@ void Pokemon::draw(SDL_Plotter& g, string boy){
 
 //Erases the sprite in its old location(HANDY DANDY)
 void Pokemon::erase(SDL_Plotter& g){
-    
     for(int r =0; r < rows; r++){
         for(int c = 0; c < col; c++){
             if(picture[r][c].R != 255 || picture[r][c].G != 255 || picture[r][c].B != 255)
                 g.plotPixel(oldLoc.x + c, oldLoc.y + r, 255, 255, 255);
         }
     }
-    
-    
 }
 
 //This makes are lives easier(PHEWWW)
@@ -202,7 +254,7 @@ void Pokemon::pokMove(SDL_Plotter& g){
 
 //File names of pokemon stored here
 string getName(int a){
-    string pokemon[15] = {"Marill", "Omanyte", "Pikachu", "pokemon1", "Squirtle", "BabyBack.txt"};
+    string pokemon[15] = {"Marill", "Squirtle", "Omanyte", "Pikachu", "pokemon1"};
 
     return pokemon[a];
 }
@@ -251,6 +303,6 @@ string getCharMove(int a){
  }
  }
  }
- }
- */
+ }*/
+ 
 #endif // POKEMON_H_INCLUDED

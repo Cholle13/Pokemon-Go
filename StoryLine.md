@@ -1,4 +1,8 @@
 # StoryLine 
+
+You've finally been granted your Pokémon Trainer's license. Now, it's time to head out to become the world's greatest Pokémon Trainer. 
+It's going to take all you've got to collect 15 Pokémon in this region. Catch monsters like the shockingly-cute Pikachu. 
+
 (this is probably going to be really bad so make edits pls.)
 
 Booth      : Hello there! Welcome to the world of POKEMON! My name is DR.Booth!

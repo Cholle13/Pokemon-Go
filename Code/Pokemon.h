@@ -19,7 +19,7 @@ struct Point{
 Point::Point(int a, int b){
     x = a;
     y = b;
-    
+
 }
 
 struct Color{
@@ -43,7 +43,7 @@ private:
     int x;
     int y;
     bool alive;
-    
+
 public:
     // Look at all those fancy methods
     Pokemon(string);
@@ -60,7 +60,7 @@ public:
     void pokMove(SDL_Plotter& g);
     void setSpeed(int a);
     void setLoc(int, int);
-    
+
 };
 
 string getName(int a);
@@ -101,7 +101,7 @@ void random_Move(Pokemon poke_Collection[], SDL_Plotter& g){
     }
 }
 
-void init_PokeDex(Pokemon poke_Collection[]){ 
+void init_PokeDex(Pokemon poke_Collection[]){
     for(int i = 0; i < 5; i++){
         Pokemon inPoke(getName(i));
         poke_Collection[i] = inPoke;
@@ -109,7 +109,7 @@ void init_PokeDex(Pokemon poke_Collection[]){
 }
 
 int boy_StandStill(int num){
-    
+
     if(num == 1 || num == 2)
         num = 0;
     if(num == 4 || num == 5)
@@ -227,7 +227,7 @@ void Pokemon::move(DIR d){
         case RIGHT: loc.x += speed;
             break;
     }
-    
+
 }
 //This is so that the PokemAns move randomly(COOLIO)
 void Pokemon::pokMove(SDL_Plotter& g){
@@ -244,11 +244,11 @@ void Pokemon::pokMove(SDL_Plotter& g){
                 break;
             case 3: if(loc.x < 950)move(RIGHT);
         }
-        
+
     }
     //hey look they erase themselves when the move :)
     erase(g);
-    
+
 }
 
 
@@ -263,7 +263,7 @@ string getName(int a){
 string getCharMove(int a){
     string character[12] = {"Boy", "DownBoy1", "DownBoy2", "UpBoy", "UpBoy1", "UpBoy2", "RBoy", "RBoy1", "RBoy2",
                           "LBoy", "LBoy1", "LBoy2"};
-    
+
     return character[a];
 }
 
@@ -304,5 +304,5 @@ string getCharMove(int a){
  }
  }
  }*/
- 
+
 #endif // POKEMON_H_INCLUDED

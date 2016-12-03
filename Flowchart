@@ -14,3 +14,8 @@ https://www.draw.io/?chrome=0&lightbox=1&edit=https%3A%2F%2Fwww.draw.io%2F%23DGr
 2016-12-01 (09:31):
 https://www.draw.io/?chrome=0&lightbox=1&edit=https%3A%2F%2Fwww.draw.io%2F%23DGroup%2520Project.html&nav=1#DGroup%20Project.html
 //Updated with setup for pokeball & relevant movement, but movement function needs to be written in index tonight
+
+2016-12-03 (11:15):
+https://www.draw.io/?chrome=0&lightbox=1&edit=https%3A%2F%2Fwww.draw.io%2F%23DGroup%2520Project.html&nav=1#DGroup%20Project.html
+//Completely overhauled main and primary movement functions
+//Note that multiple functions (e.g. Pokeball movement & collision) need to be charted

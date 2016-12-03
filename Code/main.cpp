@@ -84,11 +84,7 @@ int main(int argc, char ** argv)
                 text.drawNoWhite(g);
                 g.update();
                 g.Sleep(5000);
-                if(g.kbhit()){
-                    if(g.getKey() == 'A'){
-                        play = true;
-                    }
-                }
+                play = true;
             }
 
             //When done with textbox it allows for movement

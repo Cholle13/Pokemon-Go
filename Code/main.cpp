@@ -198,7 +198,7 @@ int main(int argc, char ** argv)
             //Changes character back to still after a certain time
             timer++;
             if(!g.kbhit() && timer >= 30){
-                boy_StandStill(spriteNum);
+                spriteNum = boy_StandStill(spriteNum);
                 timer = 1;
             }
             

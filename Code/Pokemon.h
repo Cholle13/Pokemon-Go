@@ -19,7 +19,7 @@ struct Point{
 Point::Point(int a, int b){
     x = a;
     y = b;
-
+    
 }
 
 struct Color{
@@ -38,12 +38,12 @@ private:
     vector< vector<Color> > picture;
     //Pixel color R,G,B
     int speed;
-    int rows;
-    int col;
+    int height;
+    int width;
     int x;
     int y;
     bool alive;
-
+    
 public:
     // Look at all those fancy methods
     Pokemon(string);
@@ -60,7 +60,8 @@ public:
     void pokMove(SDL_Plotter& g);
     void setSpeed(int a);
     void setLoc(int, int);
-
+    bool poke_Captured(Pokemon, SDL_Plotter&);
+    
 };
 
 string getName(int a);
@@ -69,6 +70,8 @@ void random_Move(Pokemon[], SDL_Plotter&);
 void init_PokeDex(Pokemon[]);
 int boy_StandStill(int);
 void alive_draw(Pokemon[], SDL_Plotter&);
+bool capture_Tester(Pokemon[], Pokemon, SDL_Plotter&);
+bool all_Captured(Pokemon[]);
 
 //Don't think I had to use this but hey here it is
 Point Pokemon::getOldLoc(){
@@ -96,20 +99,21 @@ void Pokemon::setAlive(bool test){
 }
 //This is to make all the pokemon move randomly (automates it for us)
 void random_Move(Pokemon poke_Collection[], SDL_Plotter& g){
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 15; i++){
         poke_Collection[i].pokMove(g);
     }
 }
 
+// Initializing the Pokedex/poke_Collection
 void init_PokeDex(Pokemon poke_Collection[]){
-    for(int i = 0; i < 5; i++){
-        Pokemon inPoke(getName(i));
-        poke_Collection[i] = inPoke;
+    for(int i = 0; i < 15; i++){
+        Pokemon init(getName(i));
+        poke_Collection[i] = init;
     }
 }
 
 int boy_StandStill(int num){
-
+    
     if(num == 1 || num == 2)
         num = 0;
     if(num == 4 || num == 5)
@@ -122,24 +126,45 @@ int boy_StandStill(int num){
 }
 
 void alive_draw(Pokemon poke_Collection[], SDL_Plotter& g){
-    if(poke_Collection[4].getAlive())
-        poke_Collection[4].draw(g);
-    if(poke_Collection[3].getAlive())
-        poke_Collection[3].draw(g);
-    if(poke_Collection[2].getAlive())
-        poke_Collection[2].draw(g);
-    if(poke_Collection[1].getAlive())
-        poke_Collection[1].draw(g);
-    if(poke_Collection[0].getAlive())
-        poke_Collection[0].draw(g);
+    for(int i = 0; i < 15; i++){
+        if(poke_Collection[i].getAlive())
+            poke_Collection[i].draw(g);
+    }
+}
+
+bool capture_Tester(Pokemon poke_Collection[], Pokemon pokeball, SDL_Plotter& g){
+    bool test = false;
+    for(int i = 0; i < 15; i++){
+        if(poke_Collection[i].poke_Captured(pokeball, g))
+            test = true;
+    }
+    return test;
+}
+
+bool Pokemon::poke_Captured(Pokemon pokeball, SDL_Plotter& g){
+    bool test;
+    if(pokeball.loc.x >= loc.x && pokeball.loc.x <= loc.x + width
+       && pokeball.loc.y >= loc.y && pokeball.loc.y <= loc.y + height){
+        erase(g);
+        test = true;
+        pokeball.erase(g);
+        setAlive(false);
+    }else
+        test = false;
+    return test;
+}
+
+bool all_Captured(Pokemon poke_Collection[]){
+    bool test = true;
+    for(int i = 0; i < 15; i++){
+        if(poke_Collection[i].getAlive()){
+            test = false;
+        }
+    }
+    return test;
 }
 
 Pokemon::Pokemon(){
-    loc.x = (rand()%900) + 2;
-    loc.y = (rand()%900) + 2;
-    oldLoc = loc;
-    alive = true;
-    speed = 10;
 }
 //Constructor for the Background(we can have multiple backgrounds)
 Pokemon::Pokemon(int a){
@@ -151,9 +176,9 @@ Pokemon::Pokemon(int a){
     loc.x = 0;
     loc.y = 0;
     oldLoc = loc;
-    file >> rows >> col;
-    for(int r = 0; r < rows; r++){
-        for(int c = 0; c < col; c++){
+    file >> height >> width;
+    for(int r = 0; r < height; r++){
+        for(int c = 0; c < width; c++){
             file >> picture[r][c].R;
             file >> picture[r][c].G;
             file >> picture[r][c].B;
@@ -169,13 +194,13 @@ Pokemon::Pokemon(string filename){
     string name = filename;
     ifstream file(name.c_str());
     loc.x = (rand()%900) + 2;
-    loc.y = (rand()%900) + 2;
+    loc.y = (rand()%700) + 2;
     oldLoc = loc;
     alive = true;
     speed = 10;
-    file >> rows >> col;
-    for(int r = 0; r < rows; r++){
-        for(int c = 0; c < col; c++){
+    file >> height >> width;
+    for(int r = 0; r < height; r++){
+        for(int c = 0; c < width; c++){
             file >> picture[r][c].R;
             file >> picture[r][c].G;
             file >> picture[r][c].B;
@@ -187,8 +212,8 @@ Pokemon::Pokemon(string filename){
 
 //Basic Draw Function
 void Pokemon::draw(SDL_Plotter& g){
-    for(int r = 0; r < rows; r++){
-        for(int c = 0; c < col; c++){
+    for(int r = 0; r < height; r++){
+        for(int c = 0; c < width; c++){
             if(picture[r][c].R != 255 || picture[r][c].G != 255 || picture[r][c].B != 255){
                 g.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
             }
@@ -206,8 +231,8 @@ void Pokemon::draw(SDL_Plotter& g, string boy){
 
 //Erases the sprite in its old location(HANDY DANDY)
 void Pokemon::erase(SDL_Plotter& g){
-    for(int r =0; r < rows; r++){
-        for(int c = 0; c < col; c++){
+    for(int r =0; r < height; r++){
+        for(int c = 0; c < width; c++){
             if(picture[r][c].R != 255 || picture[r][c].G != 255 || picture[r][c].B != 255)
                 g.plotPixel(oldLoc.x + c, oldLoc.y + r, 255, 255, 255);
         }
@@ -227,7 +252,7 @@ void Pokemon::move(DIR d){
         case RIGHT: loc.x += speed;
             break;
     }
-
+    
 }
 //This is so that the PokemAns move randomly(COOLIO)
 void Pokemon::pokMove(SDL_Plotter& g){
@@ -244,26 +269,26 @@ void Pokemon::pokMove(SDL_Plotter& g){
                 break;
             case 3: if(loc.x < 950)move(RIGHT);
         }
-
+        
     }
     //hey look they erase themselves when the move :)
     erase(g);
-
+    
 }
 
 
 //File names of pokemon stored here
 string getName(int a){
-    string pokemon[15] = {"Marill", "Squirtle", "Omanyte", "Pikachu", "pokemon1"};
-
+    string pokemon[15] = {"Squirtle", "Marill", "Omanyte", "Pikachu", "pokemon1", "Snorlax", "Eevee", "Jigglypuff", "Magikarp", "Weedle", "Bulbasaur", "Gloom", "Hypno", "Charmander", "Abra"};
+    
     return pokemon[a];
 }
 
 //File names of character movements here
 string getCharMove(int a){
     string character[12] = {"Boy", "DownBoy1", "DownBoy2", "UpBoy", "UpBoy1", "UpBoy2", "RBoy", "RBoy1", "RBoy2",
-                          "LBoy", "LBoy1", "LBoy2"};
-
+        "LBoy", "LBoy1", "LBoy2"};
+    
     return character[a];
 }
 

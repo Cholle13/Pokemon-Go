@@ -49,6 +49,7 @@ public:
     // Look at all those fancy methods
     Pokemon(string);
     Pokemon(int);
+    Pokemon(string, int, int, int);
     Pokemon();
     Point loc;
     void draw(SDL_Plotter&);
@@ -59,7 +60,7 @@ public:
     void setAlive(bool);
     bool getCollected();
     void setCollected(bool);
-    void draw(SDL_Plotter&, string);
+    void draw(SDL_Plotter&, string, int, int, int);
     void erase(SDL_Plotter&);
     void move(DIR);
     Point getOldLoc();
@@ -67,6 +68,7 @@ public:
     void setSpeed(int a);
     void setLoc(int, int);
     bool poke_Captured(Pokemon, SDL_Plotter&);
+    void change_Team(Pokemon, int, int, int);
     
 };
 
@@ -275,6 +277,47 @@ Pokemon::Pokemon(string filename){
     file.close();
 }
 
+//this is for the boy to change colors
+Pokemon::Pokemon(string filename, int red, int green, int blue){
+    picture.resize(256, vector<Color>(256));
+    string name = filename;
+    ifstream file(name.c_str());
+    loc.x = (rand()%900) + 2;
+    loc.y = (rand()%700) + 100;
+    oldLoc = loc;
+    alive = true;
+    collected = false;
+    speed = 10;
+    file >> height >> width;
+    for(int r = 0; r < height; r++){
+        for(int c = 0; c < width; c++){
+            file >> picture[r][c].R;
+            file >> picture[r][c].G;
+            file >> picture[r][c].B;
+            
+            if(picture[r][c].R == 53 && picture[r][c].G == 103 && picture[r][c].B == 251){
+                picture[r][c].R = red;
+                picture[r][c].G = green;
+                picture[r][c].B = blue;
+            }
+        }
+    }
+    //Can't forget to close our files!
+    file.close();
+}
+//Changes the colors of the boy
+void Pokemon::change_Team(Pokemon boy, int red, int green, int blue){
+    for(int r = 0; r < boy.height; r++){
+        for(int c = 0; c < boy.width; c++){
+            if(boy.picture[r][c].R == 53 && boy.picture[r][c].G == 103 && boy.picture[r][c].B == 251){
+                boy.picture[r][c].R = red;
+                boy.picture[r][c].G = green;
+                boy.picture[r][c].B = blue;
+            }
+        }
+    }
+}
+
 //Basic Draw Function
 void Pokemon::draw(SDL_Plotter& g){
     for(int r = 0; r < height; r++){
@@ -287,8 +330,8 @@ void Pokemon::draw(SDL_Plotter& g){
 }
 
 //Sneaky way to change the Sprite to one of your choosing(CLEVER AMIRITE?)
-void Pokemon::draw(SDL_Plotter& g, string boy){
-    Pokemon sneak(boy);
+void Pokemon::draw(SDL_Plotter& g, string boy, int red, int green, int blue){
+    Pokemon sneak(boy, red, green, blue);
     sneak.loc = loc;
     sneak.draw(g);
     //picture.clear();

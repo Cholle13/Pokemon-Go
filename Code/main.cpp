@@ -34,15 +34,25 @@ int main(int argc, char ** argv)
     
     x = g.getCol()/2;
     y = g.getRow()/2;
-    
-    //uncomment these when sound works?
-    // g.initSound("background1");
-    // g.playSound("background1");
+    /*
+    //SOUND
+         Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 );
+
+        Mix_Music *music = NULL;
+        music = Mix_LoadMUS( "101-opening.mp3" );
+
+        Mix_Music *music_after_menu = NULL;
+        music_after_menu = Mix_LoadMUS( "background5.mp3" );
+
+        Mix_Chunk *sound = NULL;
+        sound = Mix_LoadWAV( "Laser_Shoot22.wav" );
+    */
     
     //declare some fun variables
     int spriteNum = 0, timer = 0, moveCount = 0, poke_Left = 15, inventory_Toggle = 0;
     bool up, down, left, right;
-    
+    // play music 
+     //Mix_PlayMusic( music, -1 );
     
     //keeps running until ESC key is pressed
     while (!g.getQuit()){
@@ -53,6 +63,8 @@ int main(int argc, char ** argv)
                 if(g.getKey() == 'S'){
                     select = true;
                     onMenu = false;
+                    //SOUND
+                    //Mix_PlayMusic( music_after_menu, -1 );
                 }
             }
             g.update();
@@ -143,6 +155,8 @@ int main(int argc, char ** argv)
                     //Finds which way the pokeball needs to move (make function that return loc of ball)
                     //Test if spacebar is pressed. If so, set start location of pokeball
                     if(g.getKey() == ' ' && !down && !up && !right && !left){
+                        //sound
+                        //Mix_PlayChannel( -1, sound, 0);
                         switch(spriteNum){
                                 //With no break if it is 0 it runs until it hits case 2(CLEVER AMIRITE?)
                             case 0:

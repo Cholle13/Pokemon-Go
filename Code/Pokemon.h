@@ -7,7 +7,7 @@
 
 
 using namespace std;
-
+const int POKEDEX_COUNT = 15;
 enum DIR {UP,DOWN,LEFT,RIGHT};
 enum RGB {R, G, B};
 struct Point{
@@ -43,6 +43,7 @@ private:
     int x;
     int y;
     bool alive;
+    bool collected;
     
 public:
     // Look at all those fancy methods
@@ -51,8 +52,11 @@ public:
     Pokemon();
     Point loc;
     void draw(SDL_Plotter&);
+    int getHeight();
     bool getAlive();
     void setAlive(bool);
+    bool getCollected();
+    void setCollected(bool);
     void draw(SDL_Plotter&, string);
     void erase(SDL_Plotter&);
     void move(DIR);
@@ -72,6 +76,7 @@ int boy_StandStill(int);
 void alive_draw(Pokemon[], SDL_Plotter&);
 bool capture_Tester(Pokemon[], Pokemon, SDL_Plotter&);
 bool all_Captured(Pokemon[]);
+void collect_Inventory(Pokemon[], Pokemon[], int);
 
 //Don't think I had to use this but hey here it is
 Point Pokemon::getOldLoc(){
@@ -97,21 +102,38 @@ bool Pokemon::getAlive(){
 void Pokemon::setAlive(bool test){
     alive = test;
 }
+
+//Gets height of pokemon
+int Pokemon::getHeight(){
+    return height;
+}
+
+//Gets if the pokemon has been taken into inventory
+bool Pokemon::getCollected(){
+    return collected;
+}
+//Sets if the Pokemon has been taken into inventory
+void Pokemon::setCollected(bool test){
+    collected = test;
+}
+
 //This is to make all the pokemon move randomly (automates it for us)
 void random_Move(Pokemon poke_Collection[], SDL_Plotter& g){
-    for(int i = 0; i < 15; i++){
-        poke_Collection[i].pokMove(g);
+    for(int i = 0; i < POKEDEX_COUNT; i++){
+        if(!poke_Collection[i].getCollected())
+            poke_Collection[i].pokMove(g);
     }
 }
 
 // Initializing the Pokedex/poke_Collection
 void init_PokeDex(Pokemon poke_Collection[]){
-    for(int i = 0; i < 15; i++){
+    for(int i = 0; i < POKEDEX_COUNT; i++){
         Pokemon init(getName(i));
         poke_Collection[i] = init;
     }
 }
 
+//returns boy to stationary sprite
 int boy_StandStill(int num){
     
     if(num == 1 || num == 2)
@@ -125,38 +147,44 @@ int boy_StandStill(int num){
     return num;
 }
 
+//used to draw each frame if the pokemon are still "alive"
 void alive_draw(Pokemon poke_Collection[], SDL_Plotter& g){
-    for(int i = 0; i < 15; i++){
+    for(int i = 0; i < POKEDEX_COUNT; i++){
         if(poke_Collection[i].getAlive())
             poke_Collection[i].draw(g);
     }
 }
-
+//this is used in correlation with poke_Captured to return if hit with the pokeball
 bool capture_Tester(Pokemon poke_Collection[], Pokemon pokeball, SDL_Plotter& g){
     bool test = false;
-    for(int i = 0; i < 15; i++){
+    for(int i = 0; i < POKEDEX_COUNT; i++){
         if(poke_Collection[i].poke_Captured(pokeball, g))
             test = true;
     }
     return test;
 }
 
+//This is how the pokemon know to erase themselves and pokeball erases (WHEN POKEBALL AND POKEMON BECOME FRIENDS)
+// This is also where we control the inventory not disapearing
 bool Pokemon::poke_Captured(Pokemon pokeball, SDL_Plotter& g){
     bool test;
     if(pokeball.loc.x >= loc.x && pokeball.loc.x <= loc.x + width
-       && pokeball.loc.y >= loc.y && pokeball.loc.y <= loc.y + height){
+       && pokeball.loc.y >= loc.y && pokeball.loc.y <= loc.y + height && !collected){
         erase(g);
         test = true;
         pokeball.erase(g);
         setAlive(false);
+        setCollected(true);
     }else
         test = false;
     return test;
 }
 
+// STUFF USED FOR INVENTORY
+
 bool all_Captured(Pokemon poke_Collection[]){
     bool test = true;
-    for(int i = 0; i < 15; i++){
+    for(int i = 0; i < POKEDEX_COUNT; i++){
         if(poke_Collection[i].getAlive()){
             test = false;
         }
@@ -164,6 +192,19 @@ bool all_Captured(Pokemon poke_Collection[]){
     return test;
 }
 
+//for this the spacer is what is giving me problems.. need to come up with a good formula
+void collect_Inventory(Pokemon pokedex[], Pokemon Inventory[], int poke_Left){
+    int spacer = 300 + poke_Left * 30;
+    for(int i = 0; i < POKEDEX_COUNT; i++){
+        if(!pokedex[i].getAlive()){
+            spacer -= pokedex[i].getHeight();
+            Inventory[i] = pokedex[i];
+            pokedex[i].setAlive(true);
+            pokedex[i].setLoc(950, spacer);
+        }
+    }
+}
+//Empty constructor for pokemon array
 Pokemon::Pokemon(){
 }
 //Constructor for the Background(we can have multiple backgrounds)
@@ -194,9 +235,10 @@ Pokemon::Pokemon(string filename){
     string name = filename;
     ifstream file(name.c_str());
     loc.x = (rand()%900) + 2;
-    loc.y = (rand()%700) + 2;
+    loc.y = (rand()%700) + 100;
     oldLoc = loc;
     alive = true;
+    collected = false;
     speed = 10;
     file >> height >> width;
     for(int r = 0; r < height; r++){
@@ -257,8 +299,8 @@ void Pokemon::move(DIR d){
 //This is so that the PokemAns move randomly(COOLIO)
 void Pokemon::pokMove(SDL_Plotter& g){
     int mov = rand()%4;
-    int freq = rand()%500;
-    if(freq == 250){
+    int freq = rand()%200;
+    if(freq == 100 && !collected){
         //Looks like we are Switchin things up... HAHAHAHA puns
         switch(mov){
             case 0: if(loc.y > 1)move(UP);
@@ -279,7 +321,7 @@ void Pokemon::pokMove(SDL_Plotter& g){
 
 //File names of pokemon stored here
 string getName(int a){
-    string pokemon[15] = {"Squirtle", "Marill", "Omanyte", "Pikachu", "pokemon1", "Snorlax", "Eevee", "Jigglypuff", "Magikarp", "Weedle", "Bulbasaur", "Gloom", "Hypno", "Charmander", "Abra"};
+    string pokemon[POKEDEX_COUNT] = {"Squirtle", "Marill", "Omanyte", "Pikachu", "pokemon1", "Snorlax", "Eevee", "Magikarp", "Weedle", "Bulbasaur", "Gloom", "Hypno", "Charmander", "Abra", "Jigglypuff"};
     
     return pokemon[a];
 }

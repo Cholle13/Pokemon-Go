@@ -16,9 +16,6 @@ int main(int argc, char ** argv)
     //Menu text("textbox2");
     
     //sets up the Pokemon objects
-    //there are two constructors...
-    //this one(int)
-    
     Pokemon BackGround(0);
     
     bool select = false;
@@ -28,12 +25,12 @@ int main(int argc, char ** argv)
     //and these(string)
     Pokemon boy(getCharMove(0));
     boy.setLoc(500, 700);
+    
     Pokemon pokeball("Pokeball");
     //Pokemon victory("Victory");
     //victory.setLoc(111, 111);
-    Pokemon poke_Collection[15];
-    init_PokeDex(poke_Collection);
-    Pokemon Inventory[15];
+    Pokemon pokedex[15];
+    init_PokeDex(pokedex);
     
     x = g.getCol()/2;
     y = g.getRow()/2;
@@ -43,7 +40,7 @@ int main(int argc, char ** argv)
     // g.playSound("background1");
     
     //declare some fun variables
-    int spriteNum = 0, timer = 0, moveCount = 0, poke_Left = 15;
+    int spriteNum = 0, timer = 0, moveCount = 0, poke_Left = 15, inventory_Toggle = 0;
     bool up, down, left, right;
     
     
@@ -68,7 +65,7 @@ int main(int argc, char ** argv)
         //plays game after done with menu
         if(!onMenu){
             
-            //if(all_Captured(poke_Collection)){
+            //if(poke_Left == 0){
             //    victory.draw(g);
             //}
             
@@ -76,7 +73,7 @@ int main(int argc, char ** argv)
             BackGround.draw(g);
             
             //This test if pokemon are alive and if so keep drawing them
-            alive_draw(poke_Collection, g);
+            alive_draw(pokedex, g);
             
             //this is to initialize the booleans
             if(timer == 0){
@@ -91,7 +88,7 @@ int main(int argc, char ** argv)
             pokeball.setSpeed(10);
             boy.draw(g, getCharMove(spriteNum));
             g.update();
-            pokeball.erase(g);
+            //pokeball.erase(g);
             
             //displays the text box and keeps it up until time expires
             /*  while(!play){
@@ -107,7 +104,7 @@ int main(int argc, char ** argv)
             
             //When done with textbox it allows for movement
             if(play){
-                //This if statement is pretty self-explanatory
+                
                 //Determines which boy sprite to use based on direction
                 if(g.kbhit()){
                     //Up arrow stuff
@@ -175,6 +172,13 @@ int main(int argc, char ** argv)
                         }
                         
                     }
+                    
+                    //THIS TOGGLES INVENTORY ON/OFF
+                    if(g.getKey() == 'I'){
+                            inventory_Toggle = 1;
+                    }if(g.getKey() == 'X'){
+                        inventory_Toggle = 0;
+                    }
                 }
                 
                 //POKEBALL STUFF
@@ -183,7 +187,7 @@ int main(int argc, char ** argv)
                 if(down && moveCount != 20){
                     pokeball.move(DOWN);
                     moveCount++;
-                    if(capture_Tester(poke_Collection, pokeball, g)){
+                    if(capture_Tester(pokedex, pokeball, g)){
                         moveCount = 20;
                         poke_Left--;
                     }
@@ -191,7 +195,7 @@ int main(int argc, char ** argv)
                 if(up && moveCount != 20){
                     pokeball.move(UP);
                     moveCount++;
-                    if(capture_Tester(poke_Collection, pokeball, g)){
+                    if(capture_Tester(pokedex, pokeball, g)){
                         moveCount = 20;
                         poke_Left--;
                     }
@@ -199,7 +203,7 @@ int main(int argc, char ** argv)
                 if(right && moveCount != 20){
                     pokeball.move(RIGHT);
                     moveCount++;
-                    if(capture_Tester(poke_Collection, pokeball, g)){
+                    if(capture_Tester(pokedex, pokeball, g)){
                         moveCount = 20;
                         poke_Left--;
                     }
@@ -207,12 +211,12 @@ int main(int argc, char ** argv)
                 if(left && moveCount != 20){
                     pokeball.move(LEFT);
                     moveCount++;
-                    if(capture_Tester(poke_Collection, pokeball, g)){
+                    if(capture_Tester(pokedex, pokeball, g)){
                         moveCount = 20;
                         poke_Left--;
                     }
                 }
-                //This is for when it reaches its destination - erases pokemon and changes them to dead
+                //This is for when it reaches its destination
                 if(moveCount == 20){
                     moveCount = 0;
                     up = right = left = down = false;
@@ -226,10 +230,16 @@ int main(int argc, char ** argv)
                 
                 //Random number for direction
                 //Random number to space out movement of pokemon
-                random_Move(poke_Collection, g);
+                random_Move(pokedex, g);
                 
+                //INVENTORY TOGGLE ON/OFF
+                if(inventory_Toggle == 1){
+                    collect_Inventory(pokedex, g);
+                }
+                if(inventory_Toggle == 0){
+                    inventory_Dissapear(pokedex, g);
+                }
                 
-                collect_Inventory(poke_Collection, Inventory, poke_Left);
                 
             }
         }

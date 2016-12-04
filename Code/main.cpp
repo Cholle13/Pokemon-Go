@@ -13,7 +13,7 @@ int main(int argc, char ** argv)
     //int R,G,B;
     
     Menu background("Menubkrd");
-    Menu text("textbox2");
+    //Menu text("textbox2");
     
     //sets up the Pokemon objects
     //there are two constructors...
@@ -33,6 +33,7 @@ int main(int argc, char ** argv)
     //victory.setLoc(111, 111);
     Pokemon poke_Collection[15];
     init_PokeDex(poke_Collection);
+    Pokemon Inventory[15];
     
     x = g.getCol()/2;
     y = g.getRow()/2;
@@ -42,7 +43,7 @@ int main(int argc, char ** argv)
     // g.playSound("background1");
     
     //declare some fun variables
-    int spriteNum = 0, timer = 0, moveCount = 0;
+    int spriteNum = 0, timer = 0, moveCount = 0, poke_Left = 15;
     bool up, down, left, right;
     
     
@@ -184,6 +185,7 @@ int main(int argc, char ** argv)
                     moveCount++;
                     if(capture_Tester(poke_Collection, pokeball, g)){
                         moveCount = 20;
+                        poke_Left--;
                     }
                 }
                 if(up && moveCount != 20){
@@ -191,6 +193,7 @@ int main(int argc, char ** argv)
                     moveCount++;
                     if(capture_Tester(poke_Collection, pokeball, g)){
                         moveCount = 20;
+                        poke_Left--;
                     }
                 }
                 if(right && moveCount != 20){
@@ -198,6 +201,7 @@ int main(int argc, char ** argv)
                     moveCount++;
                     if(capture_Tester(poke_Collection, pokeball, g)){
                         moveCount = 20;
+                        poke_Left--;
                     }
                 }
                 if(left && moveCount != 20){
@@ -205,6 +209,7 @@ int main(int argc, char ** argv)
                     moveCount++;
                     if(capture_Tester(poke_Collection, pokeball, g)){
                         moveCount = 20;
+                        poke_Left--;
                     }
                 }
                 //This is for when it reaches its destination - erases pokemon and changes them to dead
@@ -222,6 +227,10 @@ int main(int argc, char ** argv)
                 //Random number for direction
                 //Random number to space out movement of pokemon
                 random_Move(poke_Collection, g);
+                
+                
+                collect_Inventory(poke_Collection, Inventory, poke_Left);
+                
             }
         }
     }

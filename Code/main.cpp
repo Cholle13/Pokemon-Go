@@ -24,7 +24,6 @@ int main(int argc, char ** argv)
     //and these(string)
     Pokemon boy(getCharMove(0));
     boy.setLoc(500, 700);
-    
     Pokemon pokeball("Pokeball");
     Pokemon victory(1);
     victory.setLoc(186, 111);
@@ -51,6 +50,7 @@ int main(int argc, char ** argv)
     
     //declare some fun variables
     int spriteNum = 0, timer = 0, moveCount = 0, poke_Left = 15, inventory_Toggle = 0;
+    int red, green, blue;
     bool up, down, left, right;
     // play music
     //Mix_PlayMusic( music, -1 );
@@ -61,6 +61,27 @@ int main(int argc, char ** argv)
         while(!select && !g.getQuit()){
             background.draw(g);
             if(g.kbhit()){
+                if(g.getKey() == 'V'){
+                    red = 248;
+                    green = 0;
+                    blue = 0;
+                    Pokemon boy(getCharMove(0), red, green, blue);
+                    boy.setLoc(500, 700);
+                }else
+                if(g.getKey() == 'M'){
+                    red = 53;
+                    green = 103;
+                    blue = 251;
+                    Pokemon boy(getCharMove(0), red, green, blue);
+                    boy.setLoc(500, 700);
+                }else
+                if(g.getKey() == 'N'){
+                    red = 253;
+                    green = 206;
+                    blue = 0;
+                    Pokemon boy(getCharMove(0), red, green, blue);
+                    boy.setLoc(500, 700);
+                }
                 if(g.getKey() == 'S'){
                     select = true;
                     onMenu = false;
@@ -101,7 +122,7 @@ int main(int argc, char ** argv)
             
             //Change this to change the pokeball's speed
             pokeball.setSpeed(10);
-            boy.draw(g, getCharMove(spriteNum));
+            boy.draw(g, getCharMove(spriteNum), red, green, blue);
             g.update();
             //pokeball.erase(g);
             
@@ -109,11 +130,11 @@ int main(int argc, char ** argv)
               while(!play){
              text.drawNoWhite(g);
              g.update();
-             g.Sleep(10000);
+            // g.Sleep(10000);
              text.change("textbox3");
              text.drawNoWhite(g);
              g.update();
-             g.Sleep(5000);
+            // g.Sleep(5000);
              play = true;
              }
             

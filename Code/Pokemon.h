@@ -53,6 +53,7 @@ public:
     Point loc;
     void draw(SDL_Plotter&);
     int getxLoc();
+    int getyLoc();
     int getHeight();
     bool getAlive();
     void setAlive(bool);
@@ -97,6 +98,10 @@ void Pokemon::setLoc(int x, int y){
 }
 int Pokemon::getxLoc(){
     return loc.x;
+}
+
+int Pokemon::getyLoc(){
+    return loc.y;
 }
 
 //This is used to return if the Pokemon is alive or not
@@ -225,10 +230,11 @@ void inventory_Dissapear(Pokemon pokedex[], SDL_Plotter& g){
 Pokemon::Pokemon(){
 }
 //Constructor for the Background(we can have multiple backgrounds)
+//ANYTHING BIGGER THAN 256x256 goes in here
 Pokemon::Pokemon(int a){
     picture.resize(1000, vector<Color>(1000));
     //add background text files to the array
-    string bkgrds[5] = {"BabyBack.txt"};
+    string bkgrds[5] = {"BabyBack.txt", "Victory", "InventoryBar"};
     string name = bkgrds[a];
     ifstream file(name.c_str());
     loc.x = 0;

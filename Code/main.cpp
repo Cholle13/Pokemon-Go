@@ -26,7 +26,6 @@ int main(int argc, char ** argv)
     boy.setLoc(500, 700);
     Pokemon pokeball("Pokeball");
     Pokemon victory(1);
-    victory.setLoc(186, 111);
     Pokemon inventoryBar(2);
     Pokemon inventoryBag("InventoryBag");
     inventoryBar.setLoc(940, 165);
@@ -205,6 +204,7 @@ int main(int argc, char ** argv)
                     //Finds which way the pokeball needs to move (make function that return loc of ball)
                     //Test if spacebar is pressed. If so, set start location of pokeball
                     if(g.getKey() == ' ' && !down && !up && !right && !left){
+                       // Mix_PlayChannel(-1, sound, 0);
                         switch(spriteNum){
                                 //With no break if it is 0 it runs until it hits case 2(CLEVER AMIRITE?)
                             case 0:

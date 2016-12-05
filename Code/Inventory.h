@@ -21,16 +21,58 @@
 #define Inventory_h
 #include "Pokemon.h"
 
+/*
+ * description: created the inventory     
+ * return: void                                          
+ * precondition: Pokemon array and SDL plotter are valid                             
+ * postcondition: inventory created                   
+ *                                                        
+*/
 void collect_Inventory(Pokemon[], SDL_Plotter&);
+/*
+ * description: puts away inventory when the player asks     
+ * return: void                                          
+ * precondition: pokemon array and sdl plotter are valid                            
+ * postcondition: inventory closed                  
+ *                                                        
+*/
 void inventory_Dissapear(Pokemon[], SDL_Plotter&);
+/*
+ * description: initialized the pokedex     
+ * return: void                                           
+ * precondition: pokemon array is valid                             
+ * postcondition: creates the pokedex                    
+ *                                                        
+*/
 void init_PokeDex(Pokemon[]);
+/*
+ * description: gets the name of the pokemon   
+ * return:string                                           
+ * precondition: a is valid                            
+ * postcondition: returns the name of the pokemon                    
+ *                                                        
+*/
 string getName(int a);
+/*
+ * description: gets the character facing position     
+ * return: string                                        
+ * precondition: a is valid                            
+ * postcondition: gets the postion the pokemon is facing                   
+ *                                                        
+*/
 string getCharMove(int a);
+/*
+ * description: captures the pokemon   
+ * return: bool                                           
+ * precondition: pokemon array, pokemon, and sdl plotter are valid                            
+ * postcondition: pokemon is captured                    
+ *                                                        
+*/
 bool capture_Tester(Pokemon[], Pokemon, SDL_Plotter&);
 
-// STUFF USED FOR INVENTORY
 
-//This is used with the inventory toggles and spacing it
+
+
 void collect_Inventory(Pokemon pokedex[], SDL_Plotter& g){
     int spacer = 700;
     inventory_Dissapear(pokedex, g);
@@ -42,7 +84,7 @@ void collect_Inventory(Pokemon pokedex[], SDL_Plotter& g){
         }
     }
 }
-//this erases the inventory but doesn't change the pokemon inside
+
 void inventory_Dissapear(Pokemon pokedex[], SDL_Plotter& g){
     for(int i = 0; i < POKEDEX_COUNT; i++){
         if(pokedex[i].getxLoc() == 950){
@@ -53,7 +95,7 @@ void inventory_Dissapear(Pokemon pokedex[], SDL_Plotter& g){
 }
 
 
-// Initializing the Pokedex/poke_Collection
+
 void init_PokeDex(Pokemon pokedex[]){
     for(int i = 0; i < POKEDEX_COUNT; i++){
         Pokemon init(getName(i));
@@ -61,14 +103,14 @@ void init_PokeDex(Pokemon pokedex[]){
     }
 }
 
-//File names of pokemon stored here
+
 string getName(int a){
     string pokemon[POKEDEX_COUNT] = {"Pikachu", "Squirtle", "Marill", "pokemon1", "Snorlax", "Eevee", "Magikarp", "Omanyte", "Weedle", "Bulbasaur", "Gloom", "Hypno", "Charmander", "Abra", "Jigglypuff"};
     
     return pokemon[a];
 }
 
-//File names of character movements here
+
 string getCharMove(int a){
     string character[12] = {"Boy", "DownBoy1", "DownBoy2", "UpBoy", "UpBoy1", "UpBoy2", "RBoy", "RBoy1", "RBoy2",
         "LBoy", "LBoy1", "LBoy2"};
@@ -76,7 +118,7 @@ string getCharMove(int a){
     return character[a];
 }
 
-//this is used in correlation with poke_Captured to return if hit with the pokeball
+
 bool capture_Tester(Pokemon pokedex[], Pokemon pokeball, SDL_Plotter& g){
     bool test = false;
     for(int i = 0; i < POKEDEX_COUNT; i++){

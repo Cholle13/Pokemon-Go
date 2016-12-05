@@ -1,3 +1,14 @@
+/*
+* Author: Benjamin Agueros, Chris Holle, Parakh Jaggi, 
+    Josh Moisand, Luke Barron
+* Assignment Title:  Group Project
+* Assignment Description: This program creates a game 
+    using the SDL plotter.
+* Due Date: 12/04/2016
+* Date Created: 11/20/2016
+* Date Last Modified: 12/04/2016
+ */
+
 //
 //  Inventory.h
 //  PokemonGO

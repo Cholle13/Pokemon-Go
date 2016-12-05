@@ -13,8 +13,31 @@
 #define SpriteAlt_h
 #include "Pokemon.h"
 
+/*
+ * description: moves the pokemon
+ * return: void                                          
+ * precondition:array of pokemon and SDL plotter are valid                             
+ * postcondition: modifies the location of the pokemon in the 
+    given SDL plotter                                                     
+*/
 void random_Move(Pokemon[], SDL_Plotter&);
+
+/*
+ * description: Changes the cahracter sprite to idle    
+ * return: int                                          
+ * precondition: integer is valid                             
+ * postcondition: retunrs the sprite index                 
+ *                                                        
+*/
 int boy_StandStill(int);
+
+/*
+ * description: draws pokemon that are still alive  
+ * return: void                                           
+ * precondition: array of pokemon and SDL plotter are valid                            
+ * postcondition: continues drawing live pokemon in SDL plotter passed by reference                   
+ *                                                        
+*/
 void alive_draw(Pokemon[], SDL_Plotter&);
 
 //This is to make all the pokemon move randomly (automates it for us)

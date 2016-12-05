@@ -56,43 +56,192 @@ private:
     bool collected;
     
 public:
-    // Look at all those fancy methods
+    
+    /*
+ * description: Constructs pokemon    
+ * return: none                                        
+ * precondition: string is valid                           
+ * postcondition: creates pokemon                    
+ *                                                        
+*/
     Pokemon(string);
+    
+    /*
+ * description: creates the background of the game
+ * return: none                                           
+ * precondition: integer is valid                           
+ * postcondition: creates background               
+ *                                                        
+*/
     Pokemon(int);
+    /*
+ * description: constructs the player  
+ * return: none                                           
+ * precondition: string, int, int, int are valid                            
+ * postcondition: creates the player                    
+ *                                                        
+*/
     Pokemon(string, int, int, int);
+    /*
+ * description: default constructor    
+ * return: none                                         
+ * precondition: pokemon is being contructed                            
+ * postcondition: contructs a default pokemon               
+ *                                                        
+*/
     Pokemon();
+   
     Point loc;
+    
+    /*
+ * description: calculate total price of item with tax     
+ * return: double                                           
+ * precondition: price and tax are valid                             
+ * postcondition: returns sum of price and tax                    
+ *                                                        
+*/
     void draw(SDL_Plotter&);
+    /*
+ * description: gets the x location of a pokemon    
+ * return: int                                        
+ * precondition: x location is set                            
+ * postcondition: returns x location                   
+ *                                                        
+*/
     int getxLoc();
+    /*
+ * description: gets the y location of a pokemon   
+ * return: int                                        
+ * precondition: y locations is set                             
+ * postcondition: returns y location                   
+ *                                                        
+*/
     int getyLoc();
+    /*
+ * description: gets pokemon height    
+ * return: int                                        
+ * precondition: height is set                             
+ * postcondition: returns height                   
+ *                                                        
+*/
     int getHeight();
+    /*
+ * description: gets a pokemons alive status    
+ * return: bool                                         
+ * precondition: alive value is set                            
+ * postcondition: returns alive or not alive               
+ *                                                        
+*/
     bool getAlive();
+    /*
+ * description: sets the alive value     
+ * return: void                                          
+ * precondition: bool is valid                              
+ * postcondition: changes alive variable                    
+ *                                                        
+*/
     void setAlive(bool);
+    /*
+ * description: sees if pokemon has been collected    
+ * return: bool                                          
+ * precondition: pokemon has been made                            
+ * postcondition: returns collected status                    
+ *                                                        
+*/
     bool getCollected();
+    /*
+ * description: sets if pokemon has been collected   
+ * return: void                                       
+ * precondition: bool is valid                             
+ * postcondition: changes collected status                  
+ *                                                        
+*/
     void setCollected(bool);
+    /*
+ * description: draws the player
+ * return: void                                           
+ * precondition: sdl plotter, string, int, int, int are valid                          
+ * postcondition: draws the player                   
+ *                                                        
+*/
     void draw(SDL_Plotter&, string, int, int, int);
+    /*
+ * description: erases the player     
+ * return: void                                           
+ * precondition: sdl plotter is valid                            
+ * postcondition: erases player                   
+ *                                                        
+*/
     void erase(SDL_Plotter&);
+    /*
+ * description: moves the player in given direction     
+ * return: void                                          
+ * precondition: DIR is valid                            
+ * postcondition: changes player location                  
+ *                                                        
+*/
     void move(DIR);
+    /*
+ * description: calculate total price of item with tax     
+ * return: double                                           
+ * precondition: price and tax are valid                             
+ * postcondition: returns sum of price and tax                    
+ *                                                        
+*/
     Point getOldLoc();
+    /*
+ * description: moves pokemon     
+ * return: void                                           
+ * precondition: sdl plotter is valid        
+ * postcondition: pokemon is moved
+ *                                                        
+*/
     void pokMove(SDL_Plotter& g);
+    /*
+ * description: sets the player speed     
+ * return: void                                          
+ * precondition: int is valid                           
+ * postcondition: changes the speed                    
+ *                                                        
+*/
     void setSpeed(int a);
+    /*
+ * description: sets player location   
+ * return: void                                           
+ * precondition: int, int are valid                             
+ * postcondition: location is changed                   
+ *                                                        
+*/
     void setLoc(int, int);
+    /*
+ * description: Checks to see if the pokemon is captured     
+ * return: bool                                          
+ * precondition: pokemon and SDL plotter are valid                            
+ * postcondition: returns the captured status                
+ *                                                        
+*/
     bool poke_Captured(Pokemon, SDL_Plotter&);
+    /*
+ * description: changes the team of the player  
+ * return: void                                          
+ * precondition: pokemon, int, int, int are valid                             
+ * postcondition: returns sum of price and tax                    
+ *                                                        
+*/
     void change_Team(Pokemon, int, int, int);
     
 };
 
-//Don't think I had to use this but hey here it is
+
 Point Pokemon::getOldLoc(){
     return oldLoc;
 }
-//This is for setting the speed of the ball and anything really
+
 void Pokemon::setSpeed(int a){
     speed = a;
 }
 
-// This function is for if you need to put something in a specific spot other than the
-// Random placement that the constructor gives
+
 void Pokemon::setLoc(int x, int y){
     loc.x = x;
     loc.y = y;
@@ -105,32 +254,31 @@ int Pokemon::getyLoc(){
     return loc.y;
 }
 
-//This is used to return if the Pokemon is alive or not
+
 bool Pokemon::getAlive(){
     return alive;
 }
-//This is to set if pokemon got hit or not
+
 void Pokemon::setAlive(bool test){
     alive = test;
 }
 
-//Gets height of pokemon
+
 int Pokemon::getHeight(){
     return height;
 }
 
 
-//Gets if the pokemon has been taken into inventory
+
 bool Pokemon::getCollected(){
     return collected;
 }
-//Sets if the Pokemon has been taken into inventory
+/
 void Pokemon::setCollected(bool test){
     collected = test;
 }
 
-//This is how the pokemon know to erase themselves and pokeball erases (WHEN POKEBALL AND POKEMON BECOME FRIENDS)
-// This is also where we control the inventory not disapearing
+
 bool Pokemon::poke_Captured(Pokemon pokeball, SDL_Plotter& g){
     bool test;
     if(pokeball.loc.x >= loc.x && pokeball.loc.x <= loc.x + width
@@ -145,11 +293,10 @@ bool Pokemon::poke_Captured(Pokemon pokeball, SDL_Plotter& g){
     return test;
 }
 
-//Empty constructor for pokemon array
+
 Pokemon::Pokemon(){
 }
-//Constructor for the Background(we can have multiple backgrounds)
-//ANYTHING BIGGER THAN 256x256 goes in here
+
 Pokemon::Pokemon(int a){
     picture.resize(1000, vector<Color>(1000));
     //add background text files to the array
@@ -167,11 +314,11 @@ Pokemon::Pokemon(int a){
             file >> picture[r][c].B;
         }
     }
-    //Can't forget to close our files!
+    
     file.close();
 }
 
-//Constructor for PokemAns
+
 Pokemon::Pokemon(string filename){
     picture.resize(256, vector<Color>(256));
     string name = filename;
@@ -190,11 +337,11 @@ Pokemon::Pokemon(string filename){
             file >> picture[r][c].B;
         }
     }
-    //Can't forget to close our files!
+    
     file.close();
 }
 
-//this is for the boy to change colors
+
 Pokemon::Pokemon(string filename, int red, int green, int blue){
     picture.resize(256, vector<Color>(256));
     string name = filename;
@@ -219,10 +366,10 @@ Pokemon::Pokemon(string filename, int red, int green, int blue){
             }
         }
     }
-    //Can't forget to close our files!
+    
     file.close();
 }
-//Changes the colors of the boy
+
 void Pokemon::change_Team(Pokemon boy, int red, int green, int blue){
     for(int r = 0; r < boy.height; r++){
         for(int c = 0; c < boy.width; c++){
@@ -235,7 +382,7 @@ void Pokemon::change_Team(Pokemon boy, int red, int green, int blue){
     }
 }
 
-//Basic Draw Function
+
 void Pokemon::draw(SDL_Plotter& g){
     for(int r = 0; r < height; r++){
         for(int c = 0; c < width; c++){
@@ -246,15 +393,15 @@ void Pokemon::draw(SDL_Plotter& g){
     }
 }
 
-//Sneaky way to change the Sprite to one of your choosing(CLEVER AMIRITE?)
+
 void Pokemon::draw(SDL_Plotter& g, string boy, int red, int green, int blue){
     Pokemon sneak(boy, red, green, blue);
     sneak.loc = loc;
     sneak.draw(g);
-    //picture.clear();
+    
 }
 
-//Erases the sprite in its old location(HANDY DANDY)
+
 void Pokemon::erase(SDL_Plotter& g){
     for(int r =0; r < height; r++){
         for(int c = 0; c < width; c++){
@@ -264,7 +411,7 @@ void Pokemon::erase(SDL_Plotter& g){
     }
 }
 
-//This makes are lives easier(PHEWWW)
+
 void Pokemon::move(DIR d){
     oldLoc = loc;
     switch(d){
@@ -279,12 +426,12 @@ void Pokemon::move(DIR d){
     }
     
 }
-//This is so that the PokemAns move randomly(COOLIO)
+
 void Pokemon::pokMove(SDL_Plotter& g){
     int mov = rand()%4;
     int freq = rand()%200;
     if(freq == 100 && !collected){
-        //Looks like we are Switchin things up... HAHAHAHA puns
+       
         switch(mov){
             case 0: if(loc.y > 1)move(UP);
                 break;
@@ -296,7 +443,7 @@ void Pokemon::pokMove(SDL_Plotter& g){
         }
         
     }
-    //hey look they erase themselves when the move :)
+    
     erase(g);
     
 }

@@ -25,6 +25,13 @@
 #include "Inventory.h"
 #include "SpriteAlt.h"
 
+/*
+ * description: Plays the game     
+ * return: void                                          
+ * precondition: the game has been created                             
+ * postcondition: runs the game                   
+ *                                                        
+*/
 void game_Init();
 
 void game_Init(){
@@ -63,16 +70,16 @@ void game_Init(){
     sound = Mix_LoadWAV( "Laser_Shoot22.wav" );
     
     
-    //declare some fun variables
+   
     int spriteNum = 0, timer = 0, moveCount = 0, poke_Left = 15, inventory_Toggle = 0;
     int red, green, blue;
     bool up, down, left, right;
     // play music
     Mix_PlayMusic( music, -1 );
     
-    //keeps running until ESC key is pressed
+    
     while (!g.getQuit()){
-        //loads menu and keeps open until the escape keyh is pressed or s is pressed
+        
         while(!select && !g.getQuit()){
             background.draw(g);
             if(g.kbhit()){
@@ -134,40 +141,38 @@ void game_Init(){
         }
         
         
-        //EDIT   HAD TO  DO THIS BECAUSE THE DIALOGUE BOX NO WORKIN
-        //play = true;
         
-        //plays game after done with menu
+        
         if(!onMenu){
-            //draw sprites
+            
             BackGround.draw(g);
             
             if(inventory_Toggle != 1)
                 inventoryBag.draw(g);
             else
                 inventoryBar.draw(g);
-            //This test if pokemon are alive and if so keep drawing them
+            
             alive_draw(pokedex, g);
             
             if(poke_Left == 0)
                 victory.draw(g);
             
-            //this is to initialize the booleans
+            
             if(timer == 0){
                 up = down = right = left = false;
-                //this is to only draw the pokeball when one of the booleans is true
+               
             }
             else if(up || down || right || left){
                 pokeball.draw(g);
             }
             
-            //Change this to change the pokeball's speed
+            
             pokeball.setSpeed(10);
             boy.draw(g, getCharMove(spriteNum), red, green, blue);
             g.update();
-            //pokeball.erase(g);
             
-            //displays the text box and keeps it up until time expires
+            
+            
             while(!play){
                 text.drawNoWhite(g);
                 g.update();
@@ -179,10 +184,10 @@ void game_Init(){
                 play = true;
             }
             
-            //When done with textbox it allows for movement
+            
             if(play){
                 
-                //Determines which boy sprite to use based on direction
+                
                 if(g.kbhit()){
                     //Up arrow stuff
                     if(g.getKey() == UP_ARROW &&  boy.loc.y > 1){
@@ -217,12 +222,11 @@ void game_Init(){
                             spriteNum = 10;
                     }
                     
-                    //Finds which way the pokeball needs to move (make function that return loc of ball)
-                    //Test if spacebar is pressed. If so, set start location of pokeball
+                    
                     if(g.getKey() == ' ' && !down && !up && !right && !left){
                         Mix_PlayChannel(-1, sound, 0);
                         switch(spriteNum){
-                                //With no break if it is 0 it runs until it hits case 2(CLEVER AMIRITE?)
+                                
                                 
                             case 0:
                             case 1:
@@ -252,7 +256,7 @@ void game_Init(){
                         
                     }
                     
-                    //THIS TOGGLES INVENTORY ON/OFF
+                    F
                     if(g.getKey() == 'I'){
                         inventory_Toggle = 1;
                     }if(g.getKey() == 'X'){
@@ -260,9 +264,7 @@ void game_Init(){
                     }
                 }
                 
-                //POKEBALL STUFF
-                //These keep the ball moving - change the moveCount to increase distance shoot
-                //If hits pokemon before moving the distance, stop movement
+                
                 if(down && moveCount != 20){
                     pokeball.move(DOWN);
                     moveCount++;
@@ -303,23 +305,23 @@ void game_Init(){
                     if(pokeball.getxLoc() < 11)
                         moveCount = 20;
                 }
-                //This is for when it reaches its destination
+                
                 if(moveCount == 20){
                     moveCount = 0;
                     up = right = left = down = false;
                 }
-                //Changes character back to still after a certain time
+                
                 timer++;
                 if(!g.kbhit() && timer >= 30){
                     spriteNum = boy_StandStill(spriteNum);
                     timer = 1;
                 }
                 
-                //Random number for direction
-                //Random number to space out movement of pokemon
+                
+                
                 random_Move(pokedex, g);
                 
-                //INVENTORY TOGGLE ON/OFF
+                
                 if(inventory_Toggle == 1){
                     collect_Inventory(pokedex, g);
                     inventoryBag.erase(g);

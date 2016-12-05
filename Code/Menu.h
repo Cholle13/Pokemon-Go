@@ -14,11 +14,10 @@
 #include "Pokemon.h"
 
 using namespace std;
-// MENU STUFF (BEN'S AREA OF EXPERTISE STAY OUT)
+
 class Menu{
 private:
     Point loc;
-    //Color picture[1080][1920];
     vector< vector<Color> > picture;
     int rows;
     int col;
@@ -27,10 +26,45 @@ private:
 
 
 public:
+    /*
+ * description: Contructs a menu     
+ * return: none                                          
+ * precondition: string is valid                           
+ * postcondition: menu has been constructed                    
+ *                                                        
+*/
     Menu(string);
+    /*
+ * description: Draws the menu   
+ * return: void                                          
+ * precondition: sdl is valid                             
+ * postcondition: menu is drawn                
+ *                                                        
+*/
     void draw(SDL_Plotter&);
+    /*
+ * description: erases the menu     
+ * return: void                                        
+ * precondition: sdl plotter is valid                        
+ * postcondition: erases the menu                   
+ *                                                        
+*/
     void erase(SDL_Plotter&);
+    /*
+ * description: changes menu vector values   
+ * return: void                                         
+ * precondition: string is valid                           
+ * postcondition: changes vector values of menu                   
+ *                                                        
+*/
     void change(string);
+    /*
+ * description: draws menu without the white     
+ * return: void                                           
+ * precondition: sdl plotter is valid                             
+ * postcondition: draws with no white space                  
+ *                                                        
+*/
     void drawNoWhite(SDL_Plotter&);
 
 };
@@ -59,7 +93,7 @@ void Menu::draw(SDL_Plotter& menu){
             menu.plotPixel(loc.x + c,loc.y + r,picture[r][c].R, picture[r][c].G, picture[r][c].B);
         }
     }
-    //picture.clear();
+    
 
 }
 

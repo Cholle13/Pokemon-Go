@@ -1,0 +1,40 @@
+#ifndef SpriteAlt_h
+#define SpriteAlt_h
+#include "Pokemon.h"
+
+void random_Move(Pokemon[], SDL_Plotter&);
+int boy_StandStill(int);
+void alive_draw(Pokemon[], SDL_Plotter&);
+
+//This is to make all the pokemon move randomly (automates it for us)
+void random_Move(Pokemon pokedex[], SDL_Plotter& g){
+    for(int i = 0; i < POKEDEX_COUNT; i++){
+        if(!pokedex[i].getCollected())
+            pokedex[i].pokMove(g);
+    }
+}
+
+//returns boy to stationary sprite
+int boy_StandStill(int num){
+    
+    if(num == 1 || num == 2)
+        num = 0;
+    if(num == 4 || num == 5)
+        num = 3;
+    if(num == 7 || num == 8)
+        num = 6;
+    if(num == 10 || num == 11)
+        num = 9;
+    return num;
+}
+
+//used to draw each frame if the pokemon are still "alive"
+void alive_draw(Pokemon pokedex[], SDL_Plotter& g){
+    for(int i = 0; i < POKEDEX_COUNT; i++){
+        if(pokedex[i].getAlive())
+            pokedex[i].draw(g);
+    }
+}
+
+
+#endif /* SpriteAlt_h */

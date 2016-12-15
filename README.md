@@ -1,28 +1,6 @@
 # Pokemon-Go
-CS 1430 Pokemon Go project
-  
-Okay.... So let's COOOOODDDDEEEEE  
-I am not sure how to configure the SDL on the compiler I am currently using(Eclipse) but I will figure it out. Ya'll can make commits to the files if you do anything stupid we can always revert(but let's test the code before we commit :))  
+CS 1430 Pokemon Go project 
 
-## Ideas???  
-Let's go ahead and assign people to different things and get this organized...(EDIT THIS TO CHOOSE WHAT YOU WANNA DO)  
-
-Ben - Figure out audio and implement. Work with Code.  
-Luke -  Spearhead documentation (flowchart and user manual)  
-Parakh - Figure out Start Menu and Work with Code / be awesome  
-Chris - Draw pokemon and backgrounds figure out how to set up SDL  (HAS WORKING PLOTTER) Work on integrating everything together and organization   
-Josh -  Moral Manager/Encouragement coordinator. Same as Parakh(work together)   
-
-## Things that need to be done
-1)  START  
-2) Figure out how to set up SDL PLOTTER    
-3) Create goals/rules for the game(MAKE A TEXT FILE AND ADD IT TO THE PROJECT)  
-4) Start figuring out Functions we need to make  
-5) Set up classes and structs we will need  
-6) Figure out Sound???  
-7) Design background and possible overlay HUD(CHRIS can work on this)  
-8) Figure out how to throw a pokeball  
-9) Do we wanna battle or just catch em all?  
 
 ## Tips on Typing in Markup  
 1) double space at the end of each line to go to next line(ENTER key don't work)  
@@ -30,7 +8,6 @@ Josh -  Moral Manager/Encouragement coordinator. Same as Parakh(work together)
 3) Commenting your commits are helpful for other to understand what you just did  
 4) COMMENT YOUR CODE PLEASE WE ALL CODE DIFFERENTLY AND IT MAKES OUR LIFE EASIER  
 5) [Here is a Cheatsheat on using markup](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)  
-
 
 ## Setting up SDL
 
@@ -46,7 +23,7 @@ Josh -  Moral Manager/Encouragement coordinator. Same as Parakh(work together)
 [Visual Studio](https://www.visualstudio.com/vs/)  
 [this looks like a good tutorial on VS](http://xeekworx.com/sdl2guides/14-sdl2guides-setupvs)  
 
-[If you have a mac using codeblocks this works!!!](https://www.youtube.com/watch?v=Bi9BPEwEMDU)  
+[If you have a mac using codeblocks this works!](https://www.youtube.com/watch?v=Bi9BPEwEMDU)  
 Ya'll will also have to get the SDL Mixer as well.. Link is posted below   
 - So once ya'll get the Mixer you will have too...(For Mac)(ps. configure and make and sudo make install the file the same way you did in the video before moving on)  
 1) Go to settings tab up top in code blocks  

@@ -1,6 +1,7 @@
 # Pokemon-Go
 CS 1430 Pokemon Go project 
 (Continuously being updated)  
+About to re-develop to make the code cleaner.  
 
 ## Tips on Typing in Markup  
 1) double space at the end of each line to go to next line(ENTER key don't work)  
